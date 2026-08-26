@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Raksha Bandhan Link Generator</title>
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Playpen+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #050505;
+      background-image: radial-gradient(circle at center, #3a0d11 0%, #050505 100%);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 20px;
+    }
+    .card {
+      background: #1c0406;
+      width: 100%;
+      /* Exact 768px width (Tailwind max-w-3xl) to match final receiver page */
+      max-width: 768px; 
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      text-align: center;
+    }
+    h2 {
+      color: #d4af37;
+      font-size: 1.8rem;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: 'Cinzel', serif;
+    }
+    .input-group {
+      text-align: left;
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      color: #e2c78a;
+      font-size: 0.95rem;
+      margin-bottom: 8px;
+      font-weight: 600;
+      font-family: 'Playfair Display', serif;
+    }
+    .hint-text {
+      font-size: 0.85rem;
+      color: #a87e2c;
+      font-weight: normal;
+      display: inline-block;
+      margin-left: 5px;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 14px 16px;
+      background: #2e0b0e;
+      border: 1px solid #5c1b22;
+      border-radius: 10px;
+      color: #fceecb;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+    
+    /* Textarea styled EXACTLY like the final receiver page */
+    textarea {
+      width: 100%;
+      padding: 16px;
+      background: #2e0b0e;
+      border: 1px solid #5c1b22;
+      border-radius: 10px;
+      color: #f5e6ca;
+      font-family: 'Playpen Sans', cursive; /* Match Final Font */
+      font-size: 16px; /* Match Final Size */
+      line-height: 1.8; /* Match Final Line Gap */
+      outline: none;
+      transition: border-color 0.3s ease;
+      resize: none;
+      min-height: 400px; /* Bada height taki ache se dikhe */
+      white-space: pre; /* Taaki manual spaces wese hi dikhe */
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    textarea::-webkit-scrollbar {
+      display: none; 
+    }
+    
+    input[type="text"]:focus, textarea:focus {
+      border-color: #d4af37;
+    }
+    input[type="text"]::placeholder, textarea::placeholder {
+      color: #8b6508;
+    }
+    
+    .btn-generate {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, #d4af37, #aa7c11);
+      border: none;
+      border-radius: 10px;
+      color: #1a0505;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease, opacity 0.2s ease;
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+      margin-top: 15px;
+      font-family: 'Cinzel', serif;
+      letter-spacing: 0.1em;
+    }
+    .btn-generate:hover {
+      opacity: 0.95;
+      transform: translateY(-1px);
+    }
+    .btn-generate:active {
+      transform: translateY(0);
+    }
+    
+    .result-box {
+      margin-top: 25px;
+      display: none;
+      flex-direction: row;
+      gap: 15px;
+    }
+    .btn-copy, .btn-preview {
+      flex: 1;
+      padding: 14px;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.3s ease, opacity 0.2s;
+    }
+    .btn-copy {
+      background: #3b82f6; 
+    }
+    .btn-preview {
+      background: #10b981; 
+    }
+    .btn-copy:hover, .btn-preview:hover {
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h2>Rakhi Link Generator ✨</h2>
+    
+    <div class="input-group">
+      <label for="friendName">Sister's Name:</label>
+      <input type="text" id="friendName" placeholder="e.g. Diya...">
+    </div>
+
+    <div class="input-group">
+      <label for="customMessage">
+        Custom Letter / Message:
+        <span class="hint-text">(Box final page ke size ka hai. Jaisa yahan dikhega, waisa hi final type hoga!)</span>
+      </label>
+      <!-- Message updated exactly as provided -->
+      <textarea id="customMessage" placeholder="Write your heartfelt message here...">Dear Sister ❤️
+
+हमारी bonding थोड़ी अलग है ! ना हमने साथ में बचपन बिताया, न रोज़ मिलना हुआ, 
+फिर भी पता नहीं कब तुम मेरी life का इतना प्यारा हिस्सा बन गई !❤️
+
+हमारी बातें, एक-दूसरे की टांग खींचना, छोटी-छोटी बातों पर लड़ना, बेवजह 
+एक-दूसरे को परेशान करना और फिर कुछ ही देर बाद ऐसे बात करना जैसे कुछ 
+हुआ ही नहीं ! यही तो हमारी भाई-बहन वाली bonding है। 😂
+
+कभी-कभी तुम कुछ बताती भी नहीं हो, फिर भी मुझे पता चल जाता है कि तुम दुखी हो या कोई बात
+तुम्हें परेशान कर रही है। 😅 और कभी तुम दुखी होती हो तो बिना तुम्हारे बताए ही मुझे पता चल जाता
+है कि कुछ ठीक नहीं है। कभी-कभी तो ऐसा लगता है जैसे हम दोनों एक ही समय पर एक ही चीज़
+महसूस कर रहे हों। ❤️
+
+कई बार हम एक जैसी चीज़ें साथ में करते हैं, एक जैसी बातें सोचते हैं और एक-दूसरे को बिना ज्यादा
+कुछ बताए ही समझ जाते हैं !शायद यही हमारी bonding की सबसे अच्छी बात है ! दूर रहकर भी
+एक-दूसरे को समझ लेना ! ✨❤️
+
+तुम मेरी real sister नहीं हो, लेकिन इसका मतलब ये बिल्कुल नहीं कि तुम्हें परेशान करने, 
+तुम्हारी टांग खींचने और तुम्हें lecture देने में मैं कोई कमी छोड़ूँगा !😜 आखिर भाई हूँ ! 
+इतना हक तो बनता है मेरा ! 😂
+
+लेकिन मज़ाक से अलग, मैं सच में चाहता हूँ कि तुम हमेशा खुश रहो ! जिंदगी में तुम्हें हर वो चीज़ मिले
+जिसकी तुम इच्छा रखती हो ! जब भी कोई परेशानी आए, बस इतना याद रखना कि तुम्हारा भाई हमेशा
+तुम्हारे साथ खड़ा है ! चाहे हम कितने भी दूर क्यों न हों ! ✨❤️
+
+इस Raksha Bandhan पर बस यही कहना है कि हमारी ये अजीब-सी, प्यारी-सी और थोड़ी पागल
+bonding हमेशा ऐसी ही बनी रहे। लड़ाई भी होगी, teasing भी होगी, एक-दूसरे को परेशान भी
+करेंगे... लेकिन हमारा रिश्ता हमेशा दिल से रहेगा। ❤️✨
+
+Happy Raksha Bandhan, मेरी प्यारी बहन ! 🥳🧿
+
+और हाँ...
+Gift की उम्मीद मत करना, online भाई हूँ !   प्यार unlimited है !
+                                                    budget limited है ! 😂😂❤️
+
+Stay happy, stay blessed और हमेशा ऐसे ही खुश रहना, ओके ! 😇❤️
+
+तुम्हारा भाई सलमान 🫂❤️</textarea>
+    </div>
+
+    <button class="btn-generate" id="genBtn" onclick="generateLink()">GENERATE LINK 🔗</button>
+
+    <input type="hidden" id="generatedUrl">
+
+    <div class="result-box" id="resultBox">
+      <button class="btn-copy" id="copyBtn" onclick="copyLink()">Copy Link 📋</button>
+      <button class="btn-preview" onclick="previewLink()">Preview 👁️</button>
+    </div>
+  </div>
+
+  <script>
+    function toTitleCase(str) {
+      return str.toLowerCase().replace(/(?:^|\s)\w/g, function(match) {
+        return match.toUpperCase();
+      });
+    }
+
+    document.getElementById('friendName').addEventListener('input', function(e) {
+      let start = this.selectionStart;
+      let end = this.selectionEnd;
+      this.value = toTitleCase(this.value);
+      this.setSelectionRange(start, end); 
+    });
+
+    function generateLink() {
+      const name = document.getElementById('friendName').value.trim();
+      const msg = document.getElementById('customMessage').value;
+      const genBtn = document.getElementById('genBtn');
+
+      if (!name) {
+        const oldText = genBtn.innerText;
+        genBtn.innerText = 'Enter Name First! ⚠️';
+        genBtn.style.background = '#ef4444'; 
+        genBtn.style.color = '#fff';
+        
+        setTimeout(() => {
+          genBtn.innerText = oldText;
+          genBtn.style.background = 'linear-gradient(135deg, #d4af37, #aa7c11)';
+          genBtn.style.color = '#1a0505';
+        }, 2000);
+        return;
+      }
+      
+      const currentUrl = window.location.href.split('?')[0];
+      let baseUrl = currentUrl.replace('index.html', '');
+      if (!baseUrl.endsWith('/')) baseUrl += '/';
+      baseUrl += 'rakhi.html';
+      
+      const fullUrl = `${baseUrl}?name=${encodeURIComponent(name)}&msg=${encodeURIComponent(msg)}`;
+      
+      document.getElementById('generatedUrl').value = fullUrl;
+      document.getElementById('resultBox').style.display = 'flex';
+    }
+
+    function copyLink() {
+      const url = document.getElementById('generatedUrl').value;
+      const copyBtn = document.getElementById('copyBtn');
+      
+      navigator.clipboard.writeText(url).then(() => {
+        copyBtn.innerText = 'Copied! ✅';
+        copyBtn.style.background = '#059669'; 
+        
+        setTimeout(() => {
+          copyBtn.innerText = 'Copy Link 📋';
+          copyBtn.style.background = '#3b82f6'; 
+        }, 2000);
+      }).catch(err => {
+        copyBtn.innerText = 'Failed! ❌';
+        copyBtn.style.background = '#ef4444'; 
+        
+        setTimeout(() => {
+          copyBtn.innerText = 'Copy Link 📋';
+          copyBtn.style.background = '#3b82f6'; 
+        }, 2000);
+      });
+    }
+
+    function previewLink() {
+      const url = document.getElementById('generatedUrl').value;
+      if (url) {
+        window.location.href = url;
+      }
+    }
+  </script>
+
+</body>
+</html>
