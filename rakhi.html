@@ -8,11 +8,11 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Playpen+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Google Fonts: Clean & Readable Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Poppins:wght@400;500;600&family=Playpen+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     
     <style>
-        body { font-family: 'Playfair Display', serif; background-color: #050505; color: #fff; overflow: hidden; }
+        body { font-family: 'Poppins', sans-serif; background-color: #050505; color: #fff; overflow: hidden; }
         
         /* Page Transition Utility */
         .page { display: none; width: 100%; height: 100%; position: absolute; inset: 0; }
@@ -21,6 +21,38 @@
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
+        }
+
+        /* Smooth Cinematic Fade Animation */
+        @keyframes cinematicFade {
+            0% { opacity: 0; filter: blur(10px); transform: translateY(15px); }
+            30% { opacity: 1; filter: blur(0px); transform: translateY(0px); }
+            70% { opacity: 1; filter: blur(0px); transform: translateY(0px); }
+            100% { opacity: 0; filter: blur(10px); transform: translateY(-15px); }
+        }
+
+        .intro-step {
+            position: absolute;
+            opacity: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .intro-step.show {
+            animation: cinematicFade 3.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Slow floating animation for emojis */
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+        }
+
+        .floating-element {
+            animation: floatSlow 3s ease-in-out infinite;
         }
 
         /* Animations */
@@ -37,6 +69,7 @@
         .float-effect { animation: rakhiFloat 4s ease-in-out infinite; cursor: pointer; }
         
         /* Backgrounds */
+        .bg-intro-gradient { background: radial-gradient(circle at center, #5a0403 0%, #1c0406 60%, #050505 100%); }
         .bg-gradient-page1 { background: radial-gradient(circle at center, #6b0504 0%, #2a0000 100%); }
         .bg-gradient-page2 { background: radial-gradient(circle at center, #5a0403 0%, #200000 100%); }
         .bg-gradient-page34 { background: radial-gradient(circle at center, #420a0c 0%, #1a0303 100%); }
@@ -73,8 +106,28 @@
 
     <main class="w-full h-full relative flex items-center justify-center">
 
+        <!-- INTRO TRAILER SCREEN (Updated with Rich Gradient Background) -->
+        <div id="intro-screen" class="page active bg-intro-gradient flex-col items-center justify-center z-50">
+            <!-- Step 1 -->
+            <div id="step1" class="intro-step px-6">
+                <h1 class="text-4xl md:text-6xl font-semibold tracking-wider text-[#fceecb] font-['Cinzel'] drop-shadow-[0_0_20px_rgba(212,175,55,0.6)]">28 AUGUST 2026</h1>
+                <p class="text-3xl mt-4 floating-element">❤️💫</p>
+            </div>
+            <!-- Step 2 -->
+            <div id="step2" class="intro-step px-6">
+                <h1 class="text-3xl md:text-5xl font-medium tracking-wide text-[#e2c78a] font-['Cinzel'] drop-shadow-[0_0_20px_rgba(212,175,55,0.6)]">A Very Special Day</h1>
+                <p class="text-3xl mt-4 floating-element">🎁💫</p>
+            </div>
+            <!-- Enter Button -->
+            <div id="intro-btn-container" class="intro-step opacity-0 transition-opacity duration-1000">
+                <button onclick="startMainWebsite()" class="btn-outline px-10 py-4 text-base md:text-lg uppercase tracking-[0.25em] font-['Cinzel'] font-bold bg-[#1c0406] hover:bg-[#3a0d11] shadow-[0_0_35px_rgba(212,175,55,0.4)] transform hover:scale-105 transition-all">
+                    ENTER ✨
+                </button>
+            </div>
+        </div>
+
         <!-- PAGE 1: Landing Page -->
-        <div id="page1" class="page active flex-col md:flex-row items-center justify-center bg-gradient-page1 px-8 md:px-20 relative w-full h-full gap-12 md:gap-0">
+        <div id="page1" class="page flex-col md:flex-row items-center justify-center bg-gradient-page1 px-8 md:px-20 relative w-full h-full gap-12 md:gap-0">
             <div class="flex-1 flex justify-center md:justify-end md:pr-10 z-10 w-full">
                 <img src="https://rakshabandhan-b83.pages.dev/images/letter.png" alt="Happy Raksha Bandhan" class="w-[300px] md:w-[450px] object-contain drop-shadow-2xl">
             </div>
@@ -154,7 +207,7 @@
                 
                 <div class="text-center mb-6 border-b border-[#d4af37]/20 pb-4">
                     <h3 class="text-lg md:text-xl font-bold text-[#fceecb] uppercase tracking-wider drop-shadow-md font-['Cinzel']">Happy Raksha Bandhan</h3>
-                    <p id="sister-name-display" class="italic text-xs md:text-sm text-[#e2c78a] mt-2">Just for My Sister</p>
+                    <p id="sister-name-display" class="text-xs md:text-sm text-[#e2c78a] mt-2 font-normal">Just for My Sister</p>
                 </div>
                 
                 <div id="letter-scroll-container" class="flex-1 overflow-x-auto overflow-y-auto mb-6 scrollbar-hide min-h-[200px] max-h-[60vh] pr-2">
@@ -171,7 +224,7 @@
 
     </main>
 
-    <!-- Bottom Bar: Creator Link & Volume Toggle (ID added for hiding) -->
+    <!-- Bottom Bar: Creator Link & Volume Toggle -->
     <div id="bottom-bar" class="fixed bottom-0 left-0 w-full p-4 flex justify-between items-end z-50 pointer-events-none">
         <a href="https://www.instagram.com/herosalman1_929/" target="_blank" class="creator-tag text-[#d4af37] text-sm md:text-base font-['Playpen_Sans'] hover:text-[#fceecb] transition-colors pointer-events-auto drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
             Made by : @Herosalman1
@@ -188,10 +241,39 @@
 
     <!-- Background Audio -->
     <audio id="hiddenAudio" loop>
-      <source src="https://scontent-arn2-1.cdninstagram.com/o1/v/t2/f2/m78/AQNy4-cLDAUsBi8Ke9PUsJ1YGvmKY4vxVaGmI-1MQyPtykPp_BcjNcTxXn_TO2DnanxyUEvrWVHk63CIPACmI2OMDidn05Pk3WJWHyg.mp4?_nc_cat=109&_nc_sid=9ca052&_nc_ht=scontent-arn2-1.cdninstagram.com&_nc_ohc=thYyzc9ACnIQ7kNvwG04KqC&efg=eyJ2ZW5jb2RlX3RhZyI6ImlnLXhwdmRzLmNsaXBzLmlnd3d3LUMzLmRhc2hfbG5faGVhYWNfdmJyM19hdWRpbyIsInZpZGVvX2lkIjpudWxsLCJvaWxfdXJsZ2VuX2FwcF9pZCI6OTM2NjE5NzQzMzkyNDU5LCJjbGllbnRfbmFtZSI6ImlnIiwieHB2X2Fzc2V0X2lkIjoxMDU1NDA2MjY0MTMxOTMxLCJhc3NldF9hZ2VfZGF5cyI6MSwidmlfdXNlY2FzZV9pZCI6MTAwOTksImR1cmF0aW9uX3MiOjMwLCJiaXRyYXRlIjo2NDgxNCwidXJsZ2VuX3NvdXJjZSI6Ind3dyJ9&ccb=17-1&_nc_gid=DSktYYaKvxSpRvrXr9xnUw&_nc_ss=7ba8c&_nc_zt=28&oh=00_AQF1xmIKEcHrCr8XriyDOZ47V6NHJda80Za3K4lai3VoTA&oe=6A90FB9A">
+      <source src="https://scontent-arn2-1.cdninstagram.com/o1/v/t2/f2/m78/AQNy4-cLDAUsBi8Ke9PUsJ1YGvmKY4vxVaGmI-1MQyPtykPp_BcjNcTxXn_TO2DnanxyUEvrWVHk63CIPACmI2OMDidn05Pk3WJWHyg.mp4?_nc_cat=109&_nc_sid=9ca052&_nc_ht=scontent-arn2-1.cdninstagram.com&_nc_ohc=thYyzc9ACnIQ7kNvwG04KqC&efg=eyJ2ZW5jb2RlX3RhZyI6ImlnLXhwdmRzLmNsaXBzLmlnd3d3LUMzLmRhc2hfbG5faGVhYWNfdmJyM19hdWRpbyIsInZpZGVvX2lkIjpudWxsLCJvaWxfdXJsZ2VuX2FwcF9pZCI6OTM2NjE5NzQzMzkyNDU5LCJjbGllbnRfbmFtZSI6ImlnIiwieHB2X2Fzc2V0X2lkIjoxMDU1NDA2MjY0MTMxOTMxLCJhc3NldF9hZ2VfZGF5cyI6MSwidmlfdXNlY2FzZV9pZCI6MTAwOTksImR1cmF0aW9uX3MiOjMwLCJiaXRyYXRlIjo2NDgxNCguidXJsZ2VuX3NvdXJjZSI6Ind3dyJ9&ccb=17-1&_nc_gid=DSktYYaKvxSpRvrXr9xnUw&_nc_ss=7ba8c&_nc_zt=28&oh=00_AQF1xmIKEcHrCr8XriyDOZ47V6NHJda80Za3K4lai3VoTA&oe=6A90FB9A">
     </audio>
 
     <script>
+        // Cinematic Intro Logic
+        window.addEventListener('DOMContentLoaded', () => {
+            const step1 = document.getElementById('step1');
+            const step2 = document.getElementById('step2');
+            const btnContainer = document.getElementById('intro-btn-container');
+
+            setTimeout(() => { step1.classList.add('show'); }, 600);
+            setTimeout(() => { step1.classList.remove('show'); }, 4200);
+
+            setTimeout(() => { step2.classList.add('show'); }, 4700);
+            setTimeout(() => { 
+                step2.classList.remove('show'); 
+                btnContainer.classList.remove('opacity-0');
+                btnContainer.classList.add('opacity-100');
+                btnContainer.style.position = 'relative';
+            }, 8400);
+        });
+
+        function startMainWebsite() {
+            const introScreen = document.getElementById('intro-screen');
+            introScreen.style.display = 'none';
+            goToPage(1);
+
+            const audio = document.getElementById('hiddenAudio');
+            if(audio.paused) {
+                audio.play();
+            }
+        }
+
         // Set dynamic name from URL parameter
         const urlParams = new URLSearchParams(window.location.search);
         const sisterName = urlParams.get('name');
@@ -204,14 +286,6 @@
         const audio = document.getElementById('hiddenAudio');
         const volumeCheckbox = document.getElementById('volume-checkbox');
 
-        // Play audio on first interaction
-        document.body.addEventListener('click', function() {
-            if(audio.paused) {
-                audio.play();
-            }
-        }, { once: true }); 
-
-        // Handle Mute/Unmute toggle
         volumeCheckbox.addEventListener('change', function() {
             audio.muted = !this.checked;
         });
@@ -249,8 +323,8 @@ bonding हमेशा ऐसी ही बनी रहे। लड़ाई 
 Happy Raksha Bandhan, मेरी प्यारी बहन ! 🥳🧿
 
 और हाँ...
-Gift की उम्मीद मत करना, online भाई हूँ !   प्यार unlimited है !
-                                                    budget limited है ! 😂😂❤️
+Gift की उम्मीद मत करना, online भाई हूँ !&nbsp;&nbsp;&nbsp;प्यार unlimited है !
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;budget limited है ! 😂😂❤️
 
 Stay happy, stay blessed और हमेशा ऐसे ही खुश रहना, ओके ! 😇❤️
 
@@ -274,11 +348,9 @@ Stay happy, stay blessed और हमेशा ऐसे ही खुश र�
 
             typeInterval = setInterval(() => {
                 if (i < chars.length) {
-                    // Inject real HTML line breaks whenever an Enter (\n) is detected
                     if(chars[i] === '\n') {
                         textElement.innerHTML += '<br>';
                     } else if (chars[i] === ' ') {
-                        // preserve multiple spaces by substituting HTML space entity
                         textElement.innerHTML += '&nbsp;';
                     } else {
                         textElement.innerHTML += chars[i];
@@ -292,7 +364,7 @@ Stay happy, stay blessed और हमेशा ऐसे ही खुश र�
             }, 35);
         }
 
-        // Navigation function (Updated to hide/show bottom bar)
+        // Navigation function
         function goToPage(pageNumber) {
             const pages = document.querySelectorAll('.page');
             pages.forEach(page => page.classList.remove('active'));
@@ -300,11 +372,10 @@ Stay happy, stay blessed और हमेशा ऐसे ही खुश र�
             const activePage = document.getElementById('page' + pageNumber);
             if (activePage) {
                 activePage.style.animation = 'none';
-                activePage.offsetHeight; // trigger reflow
+                activePage.offsetHeight; 
                 activePage.style.animation = null; 
                 activePage.classList.add('active');
                 
-                // Show bottom bar ONLY on page 1
                 const bottomBar = document.getElementById('bottom-bar');
                 if (pageNumber === 1) {
                     bottomBar.style.display = 'flex';
