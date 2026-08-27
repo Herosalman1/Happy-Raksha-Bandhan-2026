@@ -181,13 +181,13 @@
 एक-दूसरे को परेशान करना और फिर कुछ ही देर बाद ऐसे बात करना जैसे कुछ 
 हुआ ही नहीं ! यही तो हमारी भाई-बहन वाली bonding है। 😂
 
-कभी-कभी तुम कुछ बताती भी नहीं हो, फिर भी पता चल जाता है कि तुम दुखी हो या कोई बात
+कभी-कभी तुम कुछ बताती भी नहीं हो, फिर भी मुझे पता चल जाता है कि तुम दुखी हो या कोई बात
 तुम्हें परेशान कर रही है। 😅 और कभी तुम दुखी होती हो तो बिना तुम्हारे बताए ही मुझे पता चल जाता
 है कि कुछ ठीक नहीं है। कभी-कभी तो ऐसा लगता है जैसे हम दोनों एक ही समय पर एक ही चीज़
 महसूस कर रहे हों। ❤️
 
 कई बार हम एक जैसी चीज़ें साथ में करते हैं, एक जैसी बातें सोचते हैं और एक-दूसरे को बिना ज्यादा
-कुछ बताए ही समझ जाते हैं !शायद यही हमारी bonding की सबसे अच्छी बात है ! दूर रहकर भी
+कुछ बताए ही समझ जाते हैं ! शायद यही हमारी bonding की सबसे अच्छी बात है ! दूर रहकर भी
 एक-दूसरे को समझ लेना ! ✨❤️
 
 तुम मेरी real sister नहीं हो, लेकिन इसका मतलब ये बिल्कुल नहीं कि तुम्हें परेशान करने, 
@@ -199,7 +199,7 @@
 तुम्हारे साथ खड़ा है ! चाहे हम कितने भी दूर क्यों न हों ! ✨❤️
 
 इस Raksha Bandhan पर बस यही कहना है कि हमारी ये अजीब-सी, प्यारी-सी और थोड़ी पागल
-bonding हमेशा ऐसी ही बनी रहे। लड़ाई भी होगी, teasing होगी, एक-दूसरे को परेशान भी
+bonding हमेशा ऐसी ही बनी रहे। लड़ाई भी होगी, teasing भी होगी, एक-दूसरे को परेशान भी
 करेंगे... लेकिन हमारा रिश्ता हमेशा दिल से रहेगा। ❤️✨
 
 Happy Raksha Bandhan, मेरी प्यारी बहन ! 🥳🧿
@@ -256,23 +256,25 @@ Stay happy, stay blessed और हमेशा ऐसे ही खुश र�
         return;
       }
       
-      // Choti aur clean key generate karna (jaise rakhi_ + random/time number)
+      // Clean short key generation
       const shortKey = 'rk_' + Math.floor(Math.random() * 90000 + 10000);
       const payload = {
         name: name,
         message: msg
       };
       
-      // LocalStorage mein data save karna
+      // Save data as JSON in localStorage (No name or long message in URL)
       localStorage.setItem(shortKey, JSON.stringify(payload));
       
-      const currentUrl = window.location.href.split('?')[0];
-      let baseUrl = currentUrl.replace('index.html', '');
-      if (!baseUrl.endsWith('/')) baseUrl += '/';
-      baseUrl += 'rakhi.html';
+      let currentUrl = window.location.href.split('?')[0].split('#')[0];
+      if(currentUrl.endsWith('index.html')) {
+          currentUrl = currentUrl.replace('index.html', '');
+      }
+      if (!currentUrl.endsWith('/')) {
+          currentUrl += '/';
+      }
       
-      // URL mein naam bilkul nahi aayega, sirf short key aayegi
-      const fullUrl = `${baseUrl}?key=${shortKey}`;
+      const fullUrl = `${currentUrl}rakhi.html?key=${shortKey}`;
       
       document.getElementById('generatedUrl').value = fullUrl;
       document.getElementById('resultBox').style.display = 'flex';
