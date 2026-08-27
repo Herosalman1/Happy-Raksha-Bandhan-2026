@@ -72,7 +72,7 @@
 तुम्हारे साथ खड़ा है ! चाहे हम कितने भी दूर क्यों न हों ! ✨❤️
 
 इस Raksha Bandhan पर बस यही कहना है कि हमारी ये अजीब-सी, प्यारी-सी और थोड़ी पागल
-bonding हमेशा ऐसी ही बनी रहे। लड़ाई भी होगी, teasing भी होगी, एक-दूसरे को परेशान भी
+bonding हमेशा ऐसी ही बनी रहे। लड़ाई भी होगी, teasing होगी, एक-दूसरे को परेशान भी
 करेंगे... लेकिन हमारा रिश्ता हमेशा दिल से रहेगा। ❤️✨
 
 Happy Raksha Bandhan, मेरी प्यारी बहन ! 🥳🧿
@@ -129,14 +129,14 @@ Stay happy, stay blessed और हमेशा ऐसे ही खुश र�
         return;
       }
       
-      // RULE 2: Chhoti aur clean key generate karna[cite: 8]
+      // Short key generation (Requirement 2 & 3)
       const shortKey = 'rk_' + Math.floor(Math.random() * 90000 + 10000);
-      
-      // RULE 3: LocalStorage mein data JSON format mein save karna[cite: 8]
       const payload = {
         name: name,
         message: msg
       };
+      
+      // Save JSON object in localStorage securely (Requirement 3)
       localStorage.setItem(shortKey, JSON.stringify(payload));
       
       let currentUrl = window.location.href.split('?')[0].split('#')[0];
@@ -147,7 +147,7 @@ Stay happy, stay blessed और हमेशा ऐसे ही खुश र�
           currentUrl += '/';
       }
       
-      // RULE 2: URL mein koi naam/message nahi jayega, sirf short key[cite: 8]
+      // Clean short URL with only ?key=rk_XXXXX (Requirement 2)[cite: 8]
       const fullUrl = `${currentUrl}rakhi.html?key=${shortKey}`;
       
       document.getElementById('generatedUrl').value = fullUrl;
