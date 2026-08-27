@@ -5,10 +5,7 @@
     <meta name="viewport" content="width=1040">
     <title>Happy Raksha Bandhan</title>
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Poppins:wght@400;500;600&family=Playpen+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     
     <style>
@@ -26,49 +23,15 @@
         .page { display: none; width: 100%; height: 100%; position: absolute; inset: 0; }
         .page.active { display: flex; animation: fadeIn 0.8s ease forwards; }
         
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes cinematicFade { 0% { opacity: 0; filter: blur(10px); transform: translateY(15px); } 30% { opacity: 1; filter: blur(0px); transform: translateY(0px); } 70% { opacity: 1; filter: blur(0px); transform: translateY(0px); } 100% { opacity: 0; filter: blur(10px); transform: translateY(-15px); } }
 
-        @keyframes cinematicFade {
-            0% { opacity: 0; filter: blur(10px); transform: translateY(15px); }
-            30% { opacity: 1; filter: blur(0px); transform: translateY(0px); }
-            70% { opacity: 1; filter: blur(0px); transform: translateY(0px); }
-            100% { opacity: 0; filter: blur(10px); transform: translateY(-15px); }
-        }
-
-        .intro-step {
-            position: absolute;
-            opacity: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-
-        .intro-step.show {
-            animation: cinematicFade 3.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        @keyframes floatSlow {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-6px); }
-        }
-
-        .floating-element {
-            animation: floatSlow 3s ease-in-out infinite;
-        }
-
-        @keyframes pulseGlow {
-            0%, 100% { filter: drop-shadow(0 0 15px rgba(212,175,55,0.4)); transform: scale(1); }
-            50% { filter: drop-shadow(0 0 30px rgba(212,175,55,0.8)); transform: scale(1.05); }
-        }
-        @keyframes rakhiFloat {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-10px) rotate(2deg); }
-        }
+        .intro-step { position: absolute; opacity: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+        .intro-step.show { animation: cinematicFade 3.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes floatSlow { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-6px); } }
+        .floating-element { animation: floatSlow 3s ease-in-out infinite; }
+        @keyframes pulseGlow { 0%, 100% { filter: drop-shadow(0 0 15px rgba(212,175,55,0.4)); transform: scale(1); } 50% { filter: drop-shadow(0 0 30px rgba(212,175,55,0.8)); transform: scale(1.05); } }
+        @keyframes rakhiFloat { 0%, 100% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-10px) rotate(2deg); } }
         
         .glow-effect { animation: pulseGlow 2.5s infinite; cursor: pointer; }
         .float-effect { animation: rakhiFloat 4s ease-in-out infinite; cursor: pointer; }
@@ -83,12 +46,7 @@
         .btn-outline { border: 1px solid rgba(212,175,55,0.6); color: #d4af37; transition: all 0.3s; cursor: pointer; border-radius: 8px; }
         .btn-outline:hover { background: rgba(212,175,55,0.1); border-color: #d4af37; color: #fceecb; }
         
-        .cursor::after {
-            content: '|';
-            animation: blink 1s step-end infinite;
-            color: #d4af37;
-            margin-left: 2px;
-        }
+        .cursor::after { content: '|'; animation: blink 1s step-end infinite; color: #d4af37; margin-left: 2px; }
         @keyframes blink { 50% { opacity: 0; } }
 
         #volume-checkbox { display: none; }
@@ -106,7 +64,7 @@
 
     <main class="w-full h-full relative flex items-center justify-center">
 
-        <!-- INTRO TRAILER SCREEN -->
+        <!-- INTRO -->
         <div id="intro-screen" class="page active bg-intro-gradient flex-col items-center justify-center z-50">
             <div id="step1" class="intro-step px-6">
                 <h1 class="text-4xl md:text-6xl font-semibold tracking-wider text-[#fceecb] font-['Cinzel'] drop-shadow-[0_0_20px_rgba(212,175,55,0.6)]">28 AUGUST 2026</h1>
@@ -123,11 +81,9 @@
             </div>
         </div>
 
-        <!-- PAGE 1: Landing Page -->
+        <!-- PAGE 1 -->
         <div id="page1" class="page flex-col md:flex-row items-center justify-center bg-gradient-page1 px-8 md:px-20 relative w-full h-full gap-12 md:gap-0">
-            <div class="flex-1 flex justify-center md:justify-end md:pr-10 z-10 w-full">
-                <img src="https://rakshabandhan-b83.pages.dev/images/letter.png" alt="Happy Raksha Bandhan" class="w-[300px] md:w-[450px] object-contain drop-shadow-2xl">
-            </div>
+            <div class="flex-1 flex justify-center md:justify-end md:pr-10 z-10 w-full"><img src="https://rakshabandhan-b83.pages.dev/images/letter.png" alt="Happy Raksha Bandhan" class="w-[300px] md:w-[450px] object-contain drop-shadow-2xl"></div>
             <div class="flex-1 flex flex-col items-center md:items-start md:pl-10 justify-center z-10 w-full">
                 <div class="flex flex-col items-center">
                     <img src="https://rakshabandhan-b83.pages.dev/images/rakhi.png" alt="Rakhi" onclick="goToPage(2)" class="w-[220px] md:w-[350px] object-contain float-effect filter drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)]">
@@ -136,7 +92,7 @@
             </div>
         </div>
 
-        <!-- PAGE 2: Transition -->
+        <!-- PAGE 2 -->
         <div id="page2" class="page bg-gradient-page2 flex-col items-center justify-center relative">
             <div class="z-10 flex flex-col items-center cursor-pointer" onclick="goToPage(3)">
                 <img src="https://rakshabandhan-b83.pages.dev/images/centre.png" alt="Open" class="w-24 h-24 sm:w-32 sm:h-32 glow-effect rounded-full drop-shadow-[0_0_20px_rgba(0,0,0,0.8)]">
@@ -144,7 +100,7 @@
             </div>
         </div>
 
-        <!-- PAGE 3: Our Memories -->
+        <!-- PAGE 3 -->
         <div id="page3" class="page bg-gradient-page34 flex-col items-center justify-center relative px-6">
             <div class="z-10 text-center max-w-2xl flex flex-col items-center">
                 <h1 class="text-2xl md:text-4xl font-bold text-[#fceecb] tracking-wider uppercase drop-shadow-md font-['Cinzel']">Happy Raksha Bandhan</h1>
@@ -156,38 +112,23 @@
             </div>
         </div>
 
-        <!-- PAGE 4: The Envelope -->
+        <!-- PAGE 4 -->
         <div id="page4" class="page bg-gradient-page34 flex-col items-center justify-center relative px-6">
             <div class="z-10 text-center flex flex-col items-center">
                 <h1 class="text-2xl md:text-3xl font-bold text-[#fceecb] tracking-wider uppercase drop-shadow-md font-['Cinzel']">A Letter, Just For My Sister</h1>
                 <p class="text-sm text-[#e2c78a] mt-2 italic drop-shadow-md">Tap the envelope to unseal</p>
                 <div class="relative w-[280px] sm:w-[320px] h-[190px] sm:h-[210px] mt-12 cursor-pointer hover:scale-105 transition-transform duration-500 shadow-[0_20px_40px_rgba(0,0,0,0.7)]" onclick="goToPage(5)">
                     <div class="absolute inset-0 rounded-sm border border-[#d4af37]/50 envelope-bg"></div>
-                    <svg viewBox="0 0 280 190" class="absolute inset-0 w-full h-full pointer-events-none opacity-60">
-                        <line x1="0" y1="190" x2="140" y2="100" stroke="#d4af37" stroke-width="1"></line>
-                        <line x1="280" y1="190" x2="140" y2="100" stroke="#d4af37" stroke-width="1"></line>
-                    </svg>
-                    <div class="absolute top-0 left-0 w-full h-[55%] z-10 origin-top">
-                        <div class="absolute inset-0 border-b border-[#d4af37]/40 envelope-flap drop-shadow-md"></div>
-                    </div>
-                    <div class="absolute top-[50%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
-                        <div class="w-[45px] h-[45px] sm:w-[50px] sm:h-[50px] rounded-full flex items-center justify-center border border-[#d4af37]/80 shadow-[0_4px_10px_rgba(0,0,0,0.5)] bg-gradient-to-br from-[#e0b943] via-[#b8860b] to-[#8b6508]">
-                            <span class="font-['Cinzel'] text-sm text-[#3b0e12] font-bold">✦</span>
-                        </div>
-                    </div>
-                    <div class="absolute bottom-5 w-full text-center z-20">
-                        <div class="font-['Cinzel'] text-[8px] sm:text-[9px] tracking-[0.2em] text-[#e2c78a] uppercase opacity-70">Tap to unseal ♡</div>
-                    </div>
+                    <svg viewBox="0 0 280 190" class="absolute inset-0 w-full h-full pointer-events-none opacity-60"><line x1="0" y1="190" x2="140" y2="100" stroke="#d4af37" stroke-width="1"></line><line x1="280" y1="190" x2="140" y2="100" stroke="#d4af37" stroke-width="1"></line></svg>
+                    <div class="absolute top-0 left-0 w-full h-[55%] z-10 origin-top"><div class="absolute inset-0 border-b border-[#d4af37]/40 envelope-flap drop-shadow-md"></div></div>
+                    <div class="absolute top-[50%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-20"><div class="w-[45px] h-[45px] sm:w-[50px] sm:h-[50px] rounded-full flex items-center justify-center border border-[#d4af37]/80 shadow-[0_4px_10px_rgba(0,0,0,0.5)] bg-gradient-to-br from-[#e0b943] via-[#b8860b] to-[#8b6508]"><span class="font-['Cinzel'] text-sm text-[#3b0e12] font-bold">✦</span></div></div>
+                    <div class="absolute bottom-5 w-full text-center z-20"><div class="font-['Cinzel'] text-[8px] sm:text-[9px] tracking-[0.2em] text-[#e2c78a] uppercase opacity-70">Tap to unseal ♡</div></div>
                 </div>
-                <div class="mt-12 opacity-50 flex items-center gap-2">
-                    <span class="w-1.5 h-1.5 rounded-full bg-[#d4af37]"></span>
-                    <span class="w-1.5 h-1.5 rounded-full bg-[#d4af37]"></span>
-                    <span class="w-1.5 h-1.5 rounded-full bg-[#d4af37]"></span>
-                </div>
+                <div class="mt-12 opacity-50 flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-[#d4af37]"></span><span class="w-1.5 h-1.5 rounded-full bg-[#d4af37]"></span><span class="w-1.5 h-1.5 rounded-full bg-[#d4af37]"></span></div>
             </div>
         </div>
 
-        <!-- PAGE 5: The Letter Modal & Restart -->
+        <!-- PAGE 5 -->
         <div id="page5" class="page bg-[#1a0505]/95 backdrop-blur-sm flex-col items-center justify-center p-4">
             <div class="w-full max-w-3xl bg-gradient-to-b from-[#3a0d11] to-[#1c0406] rounded-xl p-8 sm:p-10 border border-[#d4af37]/40 shadow-[0_0_50px_rgba(0,0,0,0.8)] relative flex flex-col mx-auto">
                 <button onclick="goToPage(4)" class="absolute top-4 right-4 text-[#e2c78a]/50 hover:text-[#d4af37] text-2xl transition-colors">×</button>
@@ -201,16 +142,14 @@
                 </div>
                 
                 <div class="flex justify-center mt-2 pt-4">
-                    <button onclick="goToPage(1)" class="btn-outline px-8 py-2 text-[10px] sm:text-xs uppercase tracking-[0.2em] font-['Cinzel'] flex items-center gap-2 bg-transparent">
-                        Restart <span>➔</span>
-                    </button>
+                    <button onclick="goToPage(1)" class="btn-outline px-8 py-2 text-[10px] sm:text-xs uppercase tracking-[0.2em] font-['Cinzel'] flex items-center gap-2 bg-transparent">Restart <span>➔</span></button>
                 </div>
             </div>
         </div>
 
     </main>
 
-    <!-- Bottom Bar: Creator Link & Volume Toggle -->
+    <!-- Bottom Bar -->
     <div id="bottom-bar" class="fixed bottom-0 left-0 w-full p-4 flex justify-between items-end z-50 pointer-events-none">
         <a href="https://www.instagram.com/herosalman1_929/" target="_blank" class="creator-tag text-[#d4af37] text-sm md:text-base font-['Playpen_Sans'] hover:text-[#fceecb] transition-colors pointer-events-auto drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
             Made by : @Herosalman1
@@ -224,13 +163,13 @@
         </div>
     </div>
 
-    <!-- Background Audio -->
+    <!-- Audio -->
     <audio id="hiddenAudio" loop>
       <source src="https://scontent-arn2-1.cdninstagram.com/o1/v/t2/f2/m78/AQNy4-cLDAUsBi8Ke9PUsJ1YGvmKY4vxVaGmI-1MQyPtykPp_BcjNcTxXn_TO2DnanxyUEvrWVHk63CIPACmI2OMDidn05Pk3WJWHyg.mp4?_nc_cat=109&_nc_sid=9ca052&_nc_ht=scontent-arn2-1.cdninstagram.com&_nc_ohc=thYyzc9ACnIQ7kNvwG04KqC&efg=eyJ2ZW5jb2RlX3RhZyI6ImlnLXhwdmRzLmNsaXBzLmlnd3d3LUMzLmRhc2hfbG5faGVhYWNfdmJyM19hdWRpbyIsInZpZGVvX2lkIjpudWxsLCJvaWxfdXJsZ2VuX2FwcF9pZCI6OTM2NjE5NzQzMzkyNDU5LCJjbGllbnRfbmFtZSI6ImlnIiwieHB2X2Fzc2V0X2lkIjoxMDU1NDA2MjY0MTMxOTMxLCJhc3NldF9hZ2VfZGF5cyI6MSwidmlfdXNlY2FzZV9pZCI6MTAwOTksImR1cmF0aW9uX3MiOjMwLCJiaXRyYXRlIjo2NDgxNCguidXJsZ2VuX3NvdXJjZSI6Ind3dyJ9&ccb=17-1&_nc_gid=DSktYYaKvxSpRvrXr9xnUw&_nc_ss=7ba8c&_nc_zt=28&oh=00_AQF1xmIKEcHrCr8XriyDOZ47V6NHJda80Za3K4lai3VoTA&oe=6A90FB9A">
     </audio>
 
     <script>
-        // Security logic[cite: 7]
+        // Security Logic[cite: 7]
         document.addEventListener('contextmenu', event => event.preventDefault());
         document.onkeydown = function(e) {
             if (e.keyCode == 123) return false; 
@@ -257,18 +196,17 @@
         });
 
         function startMainWebsite() {
-            const introScreen = document.getElementById('intro-screen');
-            introScreen.style.display = 'none';
+            document.getElementById('intro-screen').style.display = 'none';
             goToPage(1);
-
             const audio = document.getElementById('hiddenAudio');
-            if(audio.paused) {
-                audio.play();
-            }
+            if(audio.paused) { audio.play(); }
         }
 
-        const urlParams = new URLSearchParams(window.location.search);
-        const shortKey = urlParams.get('key');
+        const hashString = window.location.hash.substring(1);
+        const urlParams = new URLSearchParams(hashString || window.location.search);
+        
+        const sisterName = urlParams.get('n');
+        const customMessageUrl = urlParams.get('m');
         
         let recipientName = "";
         let letterContent = `Dear Sister ❤️
@@ -305,7 +243,7 @@ Happy Raksha Bandhan, मेरी प्यारी बहन ! 🥳🧿
 
 और हाँ...
 Gift की उम्मीद मत करना, online भाई हूँ !   प्यार unlimited है !
-                                                          budget limited है ! 😂😂❤️
+                                                         budget limited है ! 😂😂❤️
 
 Stay happy, stay blessed और हमेशा ऐसे ही खुश रहना, ओके ! 😇❤️
 
@@ -316,21 +254,18 @@ Stay happy, stay blessed और हमेशा ऐसे ही खुश र�
                 const savedData = JSON.parse(localStorage.getItem(shortKey));
                 recipientName = savedData.name;
                 letterContent = savedData.message;
-            } catch(e) {
-                console.error("Storage data parse error");
-            }
+            } catch(e) { console.error("Storage data parse error"); }
         }
+        
+        if (sisterName) { recipientName = sisterName; }
+        if (customMessageUrl) { letterContent = customMessageUrl; }
         
         if (recipientName) {
             document.getElementById('sister-name-display').innerText = `Just for My Sister ${recipientName}`;
         }
 
-        const audio = document.getElementById('hiddenAudio');
         const volumeCheckbox = document.getElementById('volume-checkbox');
-
-        volumeCheckbox.addEventListener('change', function() {
-            audio.muted = !this.checked;
-        });
+        volumeCheckbox.addEventListener('change', function() { document.getElementById('hiddenAudio').muted = !this.checked; });
 
         let typeInterval;
 
@@ -357,29 +292,14 @@ Stay happy, stay blessed और हमेशा ऐसे ही खुश र�
         }
 
         function goToPage(pageNumber) {
-            const pages = document.querySelectorAll('.page');
-            pages.forEach(page => page.classList.remove('active'));
-            
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
             const activePage = document.getElementById('page' + pageNumber);
+            
             if (activePage) {
-                activePage.style.animation = 'none';
-                activePage.offsetHeight; 
-                activePage.style.animation = null; 
-                activePage.classList.add('active');
-                
+                activePage.style.animation = 'none'; activePage.offsetHeight; activePage.style.animation = null; activePage.classList.add('active');
                 const bottomBar = document.getElementById('bottom-bar');
-                if (pageNumber === 1) {
-                    bottomBar.style.display = 'flex';
-                } else {
-                    bottomBar.style.display = 'none';
-                }
-                
-                if (pageNumber === 5) {
-                    document.getElementById('typewriter-text').classList.add('cursor');
-                    startTypewriter();
-                } else {
-                    clearInterval(typeInterval); 
-                }
+                if (pageNumber === 1) bottomBar.style.display = 'flex'; else bottomBar.style.display = 'none';
+                if (pageNumber === 5) { document.getElementById('typewriter-text').classList.add('cursor'); startTypewriter(); } else clearInterval(typeInterval); 
             }
         }
     </script>
