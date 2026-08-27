@@ -134,7 +134,6 @@
                 </div>
                 
                 <div id="letter-scroll-container" class="flex-1 overflow-x-auto overflow-y-auto mb-6 scrollbar-hide min-h-[200px] max-h-[60vh] pr-2">
-                    <!-- FIXED: white-space: pre-wrap preserves exact line breaks and formatting -->
                     <p id="typewriter-text" style="white-space: pre-wrap;" class="text-[16px] leading-[1.8] text-[#f5e6ca] text-left font-['Playpen_Sans'] cursor"></p>
                 </div>
                 
@@ -197,7 +196,7 @@
             if(audio.paused) { audio.play(); }
         }
 
-        // Read short key from URL and fetch data from LocalStorage (Requirement 4)[cite: 8]
+        // Smart Fallback Reader: Fetches from LocalStorage, or falls back to URL Hash if needed
         const urlParams = new URLSearchParams(window.location.search);
         const shortKey = urlParams.get('key');
         
@@ -205,7 +204,7 @@
         let letterContent = `Dear Sister ❤️
 
 हमारी bonding थोड़ी अलग है ! ना हमने साथ में बचपन बिताया, न रोज़ मिलना हुआ, 
-फिर भी पता नहीं कब तुम मेरी life का इतना प्यारा हिस्सा बन गई !❤️
+फिर भी पता नहीं कब तुम मेरी life का इतना प्यारा हिस्सा बन गई ! ❤️
 
 हमारी बातें, एक-दूसरे की टांग खींचना, छोटी-छोटी बातों पर लड़ना, बेवजह 
 एक-दूसरे को परेशान करना और फिर कुछ ही देर बाद ऐसे बात करना जैसे कुछ 
@@ -220,7 +219,7 @@
 बिना ज्यादा कुछ बताए ही समझ जाते हैं ! शायद यही हमारी bonding की सबसे अच्छी बात है !
 
 तुम मेरी real sister नहीं हो, लेकिन इसका मतलब ये बिल्कुल नहीं कि तुम्हें परेशान करने, 
-तुम्हारी टांग खींचने और तुम्हें lecture देने में मैं कोई कमी छोड़ूँगा !😜 आखिर भाई हूँ ! 
+तुम्हारी टांग खींचने और तुम्हें lecture देने में मैं कोई कमी छोड़ूँगा ! 😜 आखिर भाई हूँ ! 
 इतना हक तो बनता है मेरा ! 😂
 
 लेकिन मज़ाक से अलग, मैं सच में चाहता हूँ कि तुम हमेशा खुश रहो ! जिंदगी में तुम्हें हर वो चीज़ मिले
@@ -241,16 +240,21 @@ Stay happy, stay blessed और हमेशा ऐसे ही खुश र�
 
 तुम्हारा भाई सलमान 🫂❤️`;
 
-        // Load custom data from localStorage using the key (Requirement 4)[cite: 8]
+        // 1. Try reading from LocalStorage first (Requirement 4)[cite: 8]
         if (shortKey && localStorage.getItem(shortKey)) {
             try {
                 const savedData = JSON.parse(localStorage.getItem(shortKey));
                 recipientName = savedData.name;
                 letterContent = savedData.message;
             } catch(e) { console.error("Storage data parse error"); }
-        }
+        } 
         
-        // Display custom sister's name dynamically (Requirement 4)[cite: 8]
+        // 2. Fallback: If localStorage is cleared across devices/browsers, check URL parameters as backup
+        if (!recipientName && urlParams.has('name')) {
+            recipientName = urlParams.get('name');
+        }
+
+        // Apply dynamic name immediately
         if (recipientName) {
             document.getElementById('sister-name-display').innerText = `Just for My Sister ${recipientName}`;
         }
