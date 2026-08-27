@@ -134,7 +134,7 @@
                 </div>
                 
                 <div id="letter-scroll-container" class="flex-1 overflow-x-auto overflow-y-auto mb-6 scrollbar-hide min-h-[200px] max-h-[60vh] pr-2">
-                    <p id="typewriter-text" style="white-space: pre;" class="text-[16px] leading-[1.8] text-[#f5e6ca] text-left font-['Playpen_Sans'] cursor"></p>
+                    <p id="typewriter-text" class="text-[16px] leading-[1.8] text-[#f5e6ca] text-left font-['Playpen_Sans'] cursor"></p>
                 </div>
                 
                 <div class="flex justify-center mt-2 pt-4">
@@ -196,6 +196,7 @@
             if(audio.paused) { audio.play(); }
         }
 
+        // Read short key from URL and fetch data from LocalStorage (Requirement 4)
         const urlParams = new URLSearchParams(window.location.search);
         const shortKey = urlParams.get('key');
         
@@ -240,6 +241,7 @@ Stay happy, stay blessed और हमेशा ऐसे ही खुश र�
 
 तुम्हारा भाई सलमान 🫂❤️`;
 
+        // Load custom data from localStorage using the key (Requirement 4)[cite: 8]
         if (shortKey && localStorage.getItem(shortKey)) {
             try {
                 const savedData = JSON.parse(localStorage.getItem(shortKey));
@@ -248,6 +250,7 @@ Stay happy, stay blessed और हमेशा ऐसे ही खुश र�
             } catch(e) { console.error("Storage data parse error"); }
         }
         
+        // Display custom sister's name dynamically (Requirement 4)[cite: 8]
         if (recipientName) {
             document.getElementById('sister-name-display').innerText = `Just for My Sister ${recipientName}`;
         }
