@@ -125,14 +125,13 @@ Stay happy, stay blessed और हमेशा ऐसे ही खुश र�
       const shortKey = 'rk_' + Math.floor(Math.random() * 90000 + 10000);
       const payload = { name: name, message: msg };
       
-      // Save secure JSON object in localStorage (Requirement 3)[cite: 8]
       localStorage.setItem(shortKey, JSON.stringify(payload));
       
       let currentUrl = window.location.href.split('?')[0].split('#')[0];
       if(currentUrl.endsWith('index.html')) currentUrl = currentUrl.replace('index.html', '');
       if (!currentUrl.endsWith('/')) currentUrl += '/';
       
-      // Pass both key and name as backup so mobile never misses it
+      // Pass both key and name as query parameters for bulletproof mobile loading
       const fullUrl = `${currentUrl}rakhi.html?key=${shortKey}&name=${encodeURIComponent(name)}`;
       
       document.getElementById('generatedUrl').value = fullUrl;
