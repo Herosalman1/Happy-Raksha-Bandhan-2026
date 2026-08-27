@@ -106,7 +106,7 @@
 
     <main class="w-full h-full relative flex items-center justify-center">
 
-        <!-- INTRO TRAILER SCREEN (Updated with Rich Gradient Background) -->
+        <!-- INTRO TRAILER SCREEN -->
         <div id="intro-screen" class="page active bg-intro-gradient flex-col items-center justify-center z-50">
             <!-- Step 1 -->
             <div id="step1" class="intro-step px-6">
@@ -274,10 +274,10 @@
             }
         }
 
-        // Set dynamic name from URL parameter
+        // Set dynamic name and custom message from URL / localStorage
         const urlParams = new URLSearchParams(window.location.search);
         const sisterName = urlParams.get('name');
-        const customMessage = urlParams.get('msg');
+        const msgKey = urlParams.get('key');
         
         if (sisterName) {
             document.getElementById('sister-name-display').innerText = `Just for My Sister ${sisterName}`;
@@ -290,6 +290,7 @@
             audio.muted = !this.checked;
         });
 
+        // Default letter content
         let letterContent = `Dear Sister ❤️
 
 हमारी bonding थोड़ी अलग है ! ना हमने साथ में बचपन बिताया, न रोज़ मिलना हुआ, 
@@ -330,8 +331,9 @@ Stay happy, stay blessed और हमेशा ऐसे ही खुश र�
 
 तुम्हारा भाई सलमान 🫂❤️`;
         
-        if (customMessage) {
-            letterContent = customMessage;
+        // Agar generator se custom message key aayi hai toh use load karo
+        if (msgKey && localStorage.getItem(msgKey)) {
+            letterContent = localStorage.getItem(msgKey);
         }
         
         let typeInterval;
