@@ -211,7 +211,7 @@
                 </div>
                 
                 <div id="letter-scroll-container" class="flex-1 overflow-x-auto overflow-y-auto mb-6 scrollbar-hide min-h-[200px] max-h-[60vh] pr-2">
-                    <p id="typewriter-text" class="text-[16px] leading-[1.8] text-[#f5e6ca] text-left font-['Playpen_Sans'] whitespace-pre cursor"></p>
+                    <p id="typewriter-text" class="text-[16px] leading-[1.8] text-[#f5e6ca] text-left font-['Playpen_Sans'] whitespace-pre-wrap cursor"></p>
                 </div>
                 
                 <div class="flex justify-center mt-2 pt-4">
@@ -290,7 +290,7 @@
             audio.muted = !this.checked;
         });
 
-        // Default letter content
+        // Clean default letter content without &nbsp;
         let letterContent = `Dear Sister ❤️
 
 हमारी bonding थोड़ी अलग है ! ना हमने साथ में बचपन बिताया, न रोज़ मिलना हुआ, 
@@ -306,7 +306,7 @@
 महसूस कर रहे हों। ❤️
 
 कई बार हम एक जैसी चीज़ें साथ में करते हैं, एक जैसी बातें सोचते हैं और एक-दूसरे को बिना ज्यादा
-कुछ बताए ही समझ जाते हैं !शायद यही हमारी bonding की सबसे अच्छी बात है ! दूर रहकर भी
+कुछ बताए ही समझ जाते हैं ! शायद यही हमारी bonding की सबसे अच्छी बात है ! दूर रहकर भी
 एक-दूसरे को समझ लेना ! ✨❤️
 
 तुम मेरी real sister नहीं हो, लेकिन इसका मतलब ये बिल्कुल नहीं कि तुम्हें परेशान करने, 
@@ -324,14 +324,14 @@ bonding हमेशा ऐसी ही बनी रहे। लड़ाई 
 Happy Raksha Bandhan, मेरी प्यारी बहन ! 🥳🧿
 
 और हाँ...
-Gift की उम्मीद मत करना, online भाई हूँ !&nbsp;&nbsp;&nbsp;प्यार unlimited है !
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;budget limited है ! 😂😂❤️
+Gift की उम्मीद मत करना, online भाई हूँ ! प्यार unlimited है !
+budget limited है ! 😂😂❤️
 
 Stay happy, stay blessed और हमेशा ऐसे ही खुश रहना, ओके ! 😇❤️
 
 तुम्हारा भाई सलमान 🫂❤️`;
         
-        // Agar generator se custom message key aayi hai toh use load karo
+        // Load custom message if passed from index.html
         if (msgKey && localStorage.getItem(msgKey)) {
             letterContent = localStorage.getItem(msgKey);
         }
@@ -342,7 +342,7 @@ Stay happy, stay blessed और हमेशा ऐसे ही खुश र�
             const textElement = document.getElementById('typewriter-text');
             const scrollContainer = document.getElementById('letter-scroll-container');
             
-            textElement.innerHTML = '';
+            textElement.textContent = '';
             clearInterval(typeInterval);
             
             const chars = Array.from(letterContent);
@@ -350,20 +350,14 @@ Stay happy, stay blessed और हमेशा ऐसे ही खुश र�
 
             typeInterval = setInterval(() => {
                 if (i < chars.length) {
-                    if(chars[i] === '\n') {
-                        textElement.innerHTML += '<br>';
-                    } else if (chars[i] === ' ') {
-                        textElement.innerHTML += '&nbsp;';
-                    } else {
-                        textElement.innerHTML += chars[i];
-                    }
+                    textElement.textContent += chars[i];
                     i++;
                     scrollContainer.scrollTop = scrollContainer.scrollHeight;
                 } else {
                     clearInterval(typeInterval);
                     textElement.classList.remove('cursor');
                 }
-            }, 35);
+            }, 30);
         }
 
         // Navigation function
