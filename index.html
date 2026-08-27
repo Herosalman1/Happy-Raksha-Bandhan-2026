@@ -78,8 +78,8 @@ bonding हमेशा ऐसी ही बनी रहे। लड़ाई 
 Happy Raksha Bandhan, मेरी प्यारी बहन ! 🥳🧿
 
 और हाँ...
-Gift की उम्मीद मत करना, online भाई हूँ !   प्यार unlimited है !
-                                                         budget limited है ! 😂😂❤️
+Gift की उम्मीद मत करना, online भाई हूँ ! <span class="align-pyar">प्यार unlimited है !</span>
+<span class="align-budget">budget limited है ! 😂😂❤️</span>
 
 Stay happy, stay blessed और हमेशा ऐसे ही खुश रहना, ओके ! 😇❤️
 
@@ -87,7 +87,6 @@ Stay happy, stay blessed और हमेशा ऐसे ही खुश र�
     </div>
 
     <button class="btn-generate" id="genBtn" onclick="generateLink()">GENERATE LINK 🔗</button>
-
     <input type="hidden" id="generatedUrl">
 
     <div class="result-box" id="resultBox">
@@ -97,30 +96,30 @@ Stay happy, stay blessed और हमेशा ऐसे ही खुश र�
   </div>
 
   <script>
+    let defaultMsg = "";
+    document.addEventListener("DOMContentLoaded", () => {
+        defaultMsg = document.getElementById('customMessage').value.trim();
+    });
+
     function toTitleCase(str) {
-      return str.toLowerCase().replace(/(?:^|\s)\w/g, function(match) {
-        return match.toUpperCase();
-      });
+      return str.toLowerCase().replace(/(?:^|\s)\w/g, function(match) { return match.toUpperCase(); });
     }
 
     document.getElementById('friendName').addEventListener('input', function(e) {
-      let start = this.selectionStart;
-      let end = this.selectionEnd;
+      let start = this.selectionStart; let end = this.selectionEnd;
       this.value = toTitleCase(this.value);
       this.setSelectionRange(start, end); 
     });
 
     function generateLink() {
       const name = document.getElementById('friendName').value.trim();
-      const msg = document.getElementById('customMessage').value;
+      const currentMsg = document.getElementById('customMessage').value;
       const genBtn = document.getElementById('genBtn');
 
       if (!name) {
         const oldText = genBtn.innerText;
         genBtn.innerText = 'Enter Name First! ⚠️';
-        genBtn.style.background = '#ef4444'; 
-        genBtn.style.color = '#fff';
-        
+        genBtn.style.background = '#ef4444'; genBtn.style.color = '#fff';
         setTimeout(() => {
           genBtn.innerText = oldText;
           genBtn.style.background = 'linear-gradient(135deg, #d4af37, #aa7c11)';
@@ -129,27 +128,15 @@ Stay happy, stay blessed और हमेशा ऐसे ही खुश र�
         return;
       }
       
-      // Short key generation (Requirement 2 & 3)
       const shortKey = 'rk_' + Math.floor(Math.random() * 90000 + 10000);
-      const payload = {
-        name: name,
-        message: msg
-      };
-      
-      // Save JSON object in localStorage securely (Requirement 3)
+      const payload = { name: name, message: currentMsg };
       localStorage.setItem(shortKey, JSON.stringify(payload));
       
       let currentUrl = window.location.href.split('?')[0].split('#')[0];
-      if(currentUrl.endsWith('index.html')) {
-          currentUrl = currentUrl.replace('index.html', '');
-      }
-      if (!currentUrl.endsWith('/')) {
-          currentUrl += '/';
-      }
+      if(currentUrl.endsWith('index.html')) currentUrl = currentUrl.replace('index.html', '');
+      if (!currentUrl.endsWith('/')) currentUrl += '/';
       
-      // Clean short URL with only ?key=rk_XXXXX (Requirement 2)[cite: 8]
       const fullUrl = `${currentUrl}rakhi.html?key=${shortKey}`;
-      
       document.getElementById('generatedUrl').value = fullUrl;
       document.getElementById('resultBox').style.display = 'flex';
     }
@@ -157,14 +144,11 @@ Stay happy, stay blessed और हमेशा ऐसे ही खुश र�
     function copyLink() {
       const url = document.getElementById('generatedUrl').value;
       const copyBtn = document.getElementById('copyBtn');
-      
       navigator.clipboard.writeText(url).then(() => {
-        copyBtn.innerText = 'Copied! ✅';
-        copyBtn.style.background = '#059669'; 
+        copyBtn.innerText = 'Copied! ✅'; copyBtn.style.background = '#059669'; 
         setTimeout(() => { copyBtn.innerText = 'Copy Link 📋'; copyBtn.style.background = '#3b82f6'; }, 2000);
-      }).catch(err => {
-        copyBtn.innerText = 'Failed! ❌';
-        copyBtn.style.background = '#ef4444'; 
+      }).catch(() => {
+        copyBtn.innerText = 'Failed! ❌'; copyBtn.style.background = '#ef4444'; 
         setTimeout(() => { copyBtn.innerText = 'Copy Link 📋'; copyBtn.style.background = '#3b82f6'; }, 2000);
       });
     }
@@ -174,6 +158,5 @@ Stay happy, stay blessed और हमेशा ऐसे ही खुश र�
       if (url) window.location.href = url;
     }
   </script>
-
 </body>
 </html>
