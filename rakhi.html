@@ -2,17 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <!-- Forced 1040 width desktop layout for uniform PC/Mobile scaling -->
     <meta name="viewport" content="width=1040">
     <title>Happy Raksha Bandhan</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Google Fonts: Clean & Readable Fonts -->
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Poppins:wght@400;500;600&family=Playpen+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     
     <style>
-        body { font-family: 'Poppins', sans-serif; background-color: #050505; color: #fff; overflow: hidden; }
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background-color: #050505; 
+            color: #fff; 
+            overflow: hidden; 
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
         
         /* Page Transition Utility */
         .page { display: none; width: 100%; height: 100%; position: absolute; inset: 0; }
@@ -97,7 +107,7 @@
         #volume-checkbox:checked + .volume-label svg:nth-child(2) { display: none; }
         #volume-checkbox:not(:checked) + .volume-label svg:nth-child(1) { display: none; }
         
-        /* Hide scrollbar for cleaner look */
+        /* Hide scrollbar */
         .scrollbar-hide::-webkit-scrollbar { display: none; }
         .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
@@ -108,17 +118,14 @@
 
         <!-- INTRO TRAILER SCREEN -->
         <div id="intro-screen" class="page active bg-intro-gradient flex-col items-center justify-center z-50">
-            <!-- Step 1 -->
             <div id="step1" class="intro-step px-6">
                 <h1 class="text-4xl md:text-6xl font-semibold tracking-wider text-[#fceecb] font-['Cinzel'] drop-shadow-[0_0_20px_rgba(212,175,55,0.6)]">28 AUGUST 2026</h1>
                 <p class="text-3xl mt-4 floating-element">❤️💫</p>
             </div>
-            <!-- Step 2 -->
             <div id="step2" class="intro-step px-6">
                 <h1 class="text-3xl md:text-5xl font-medium tracking-wide text-[#e2c78a] font-['Cinzel'] drop-shadow-[0_0_20px_rgba(212,175,55,0.6)]">A Very Special Day</h1>
                 <p class="text-3xl mt-4 floating-element">🎁💫</p>
             </div>
-            <!-- Enter Button -->
             <div id="intro-btn-container" class="intro-step opacity-0 transition-opacity duration-1000">
                 <button onclick="startMainWebsite()" class="btn-outline px-10 py-4 text-base md:text-lg uppercase tracking-[0.25em] font-['Cinzel'] font-bold bg-[#1c0406] hover:bg-[#3a0d11] shadow-[0_0_35px_rgba(212,175,55,0.4)] transform hover:scale-105 transition-all">
                     ENTER ✨
@@ -211,7 +218,8 @@
                 </div>
                 
                 <div id="letter-scroll-container" class="flex-1 overflow-x-auto overflow-y-auto mb-6 scrollbar-hide min-h-[200px] max-h-[60vh] pr-2">
-                    <p id="typewriter-text" class="text-[16px] leading-[1.8] text-[#f5e6ca] text-left font-['Playpen_Sans'] whitespace-pre cursor"></p>
+                    <!-- white-space: pre-wrap guarantees exact space rendering without breaking -->
+                    <p id="typewriter-text" style="white-space: pre-wrap;" class="text-[16px] leading-[1.8] text-[#f5e6ca] text-left font-['Playpen_Sans'] cursor"></p>
                 </div>
                 
                 <div class="flex justify-center mt-2 pt-4">
@@ -224,7 +232,7 @@
 
     </main>
 
-    <!-- Bottom Bar: Creator Link & Volume Toggle -->
+    <!-- Bottom Bar -->
     <div id="bottom-bar" class="fixed bottom-0 left-0 w-full p-4 flex justify-between items-end z-50 pointer-events-none">
         <a href="https://www.instagram.com/herosalman1_929/" target="_blank" class="creator-tag text-[#d4af37] text-sm md:text-base font-['Playpen_Sans'] hover:text-[#fceecb] transition-colors pointer-events-auto drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
             Made by : @Herosalman1
@@ -245,6 +253,16 @@
     </audio>
 
     <script>
+        // Security: Block Right-click, Inspect, View Source shortcuts
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.onkeydown = function(e) {
+            if (e.keyCode == 123) return false; // F12
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false; // Ctrl+Shift+I
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) return false; // Ctrl+Shift+C
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) return false; // Ctrl+Shift+J
+            if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false; // Ctrl+U
+        };
+
         // Cinematic Intro Logic
         window.addEventListener('DOMContentLoaded', () => {
             const step1 = document.getElementById('step1');
@@ -274,7 +292,7 @@
             }
         }
 
-        // URL se key read karke real name aur message fetch karna
+        // Fetch Data using the clean short key from LocalStorage
         const urlParams = new URLSearchParams(window.location.search);
         const shortKey = urlParams.get('key');
         
@@ -288,13 +306,13 @@
 एक-दूसरे को परेशान करना और फिर कुछ ही देर बाद ऐसे बात करना जैसे कुछ 
 हुआ ही नहीं ! यही तो हमारी भाई-बहन वाली bonding है। 😂
 
-कभी-कभी तुम कुछ बताती भी नहीं हो, फिर भी पता चल जाता है कि तुम दुखी हो या कोई बात
+कभी-कभी तुम कुछ बताती भी नहीं हो, फिर भी मुझे पता चल जाता है कि तुम दुखी हो या कोई बात
 तुम्हें परेशान कर रही है। 😅 और कभी तुम दुखी होती हो तो बिना तुम्हारे बताए ही मुझे पता चल जाता
 है कि कुछ ठीक नहीं है। कभी-कभी तो ऐसा लगता है जैसे हम दोनों एक ही समय पर एक ही चीज़
 महसूस कर रहे हों। ❤️
 
 कई बार हम एक जैसी चीज़ें साथ में करते हैं, एक जैसी बातें सोचते हैं और एक-दूसरे को बिना ज्यादा
-कुछ बताए ही समझ जाते हैं !शायद यही हमारी bonding की सबसे अच्छी बात है ! दूर रहकर भी
+कुछ बताए ही समझ जाते हैं ! शायद यही हमारी bonding की सबसे अच्छी बात है ! दूर रहकर भी
 एक-दूसरे को समझ लेना ! ✨❤️
 
 तुम मेरी real sister नहीं हो, लेकिन इसका मतलब ये बिल्कुल नहीं कि तुम्हें परेशान करने, 
@@ -306,27 +324,26 @@
 तुम्हारे साथ खड़ा है ! चाहे हम कितने भी दूर क्यों न हों ! ✨❤️
 
 इस Raksha Bandhan पर बस यही कहना है कि हमारी ये अजीब-सी, प्यारी-सी और थोड़ी पागल
-bonding हमेशा ऐसी ही बनी रहे। लड़ाई भी होगी, teasing होगी, एक-दूसरे को परेशान भी
+bonding हमेशा ऐसी ही बनी रहे। लड़ाई भी होगी, teasing भी होगी, एक-दूसरे को परेशान भी
 करेंगे... लेकिन हमारा रिश्ता हमेशा दिल से रहेगा। ❤️✨
 
 Happy Raksha Bandhan, मेरी प्यारी बहन ! 🥳🧿
 
 और हाँ...
-Gift की उम्मीद मत करना, online भाई हूँ !&nbsp;&nbsp;&nbsp;प्यार unlimited है !
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;budget limited है ! 😂😂❤️
+Gift की उम्मीद मत करना, online भाई हूँ !   प्यार unlimited है !
+                                                             budget limited है ! 😂😂❤️
 
 Stay happy, stay blessed और हमेशा ऐसे ही खुश रहना, ओके ! 😇❤️
 
 तुम्हारा भाई सलमान 🫂❤️`;
 
-        // Agar valid key milti hai toh localStorage se real name load kar lo
         if (shortKey && localStorage.getItem(shortKey)) {
             try {
                 const savedData = JSON.parse(localStorage.getItem(shortKey));
                 recipientName = savedData.name;
                 letterContent = savedData.message;
             } catch(e) {
-                console.error("Data parse error");
+                console.error("Storage data parse error");
             }
         }
         
@@ -347,7 +364,8 @@ Stay happy, stay blessed और हमेशा ऐसे ही खुश र�
             const textElement = document.getElementById('typewriter-text');
             const scrollContainer = document.getElementById('letter-scroll-container');
             
-            textElement.innerHTML = '';
+            // Clean text injection preventing any raw &nbsp; or html codes
+            textElement.textContent = '';
             clearInterval(typeInterval);
             
             const chars = Array.from(letterContent);
@@ -355,13 +373,7 @@ Stay happy, stay blessed और हमेशा ऐसे ही खुश र�
 
             typeInterval = setInterval(() => {
                 if (i < chars.length) {
-                    if(chars[i] === '\n') {
-                        textElement.innerHTML += '<br>';
-                    } else if (chars[i] === ' ') {
-                        textElement.innerHTML += '&nbsp;';
-                    } else {
-                        textElement.innerHTML += chars[i];
-                    }
+                    textElement.textContent += chars[i];
                     i++;
                     scrollContainer.scrollTop = scrollContainer.scrollHeight;
                 } else {
@@ -371,7 +383,6 @@ Stay happy, stay blessed और हमेशा ऐसे ही खुश र�
             }, 35);
         }
 
-        // Navigation function
         function goToPage(pageNumber) {
             const pages = document.querySelectorAll('.page');
             pages.forEach(page => page.classList.remove('active'));
