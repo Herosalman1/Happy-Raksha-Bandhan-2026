@@ -15,8 +15,6 @@
             color: #fff; 
             overflow: hidden; 
             -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
             user-select: none;
         }
         
@@ -75,9 +73,7 @@
                 <p class="text-3xl mt-4 floating-element">🎁💫</p>
             </div>
             <div id="intro-btn-container" class="intro-step opacity-0 transition-opacity duration-1000">
-                <button onclick="startMainWebsite()" class="btn-outline px-10 py-4 text-base md:text-lg uppercase tracking-[0.25em] font-['Cinzel'] font-bold bg-[#1c0406] hover:bg-[#3a0d11] shadow-[0_0_35px_rgba(212,175,55,0.4)] transform hover:scale-105 transition-all">
-                    ENTER ✨
-                </button>
+                <button onclick="startMainWebsite()" class="btn-outline px-10 py-4 text-base md:text-lg uppercase tracking-[0.25em] font-['Cinzel'] font-bold bg-[#1c0406] hover:bg-[#3a0d11] shadow-[0_0_35px_rgba(212,175,55,0.4)] transform hover:scale-105 transition-all">ENTER ✨</button>
             </div>
         </div>
 
@@ -138,7 +134,7 @@
                 </div>
                 
                 <div id="letter-scroll-container" class="flex-1 overflow-x-auto overflow-y-auto mb-6 scrollbar-hide min-h-[200px] max-h-[60vh] pr-2">
-                    <p id="typewriter-text" style="white-space: pre-wrap;" class="text-[16px] leading-[1.8] text-[#f5e6ca] text-left font-['Playpen_Sans'] cursor"></p>
+                    <p id="typewriter-text" style="white-space: pre;" class="text-[16px] leading-[1.8] text-[#f5e6ca] text-left font-['Playpen_Sans'] cursor"></p>
                 </div>
                 
                 <div class="flex justify-center mt-2 pt-4">
@@ -151,9 +147,7 @@
 
     <!-- Bottom Bar -->
     <div id="bottom-bar" class="fixed bottom-0 left-0 w-full p-4 flex justify-between items-end z-50 pointer-events-none">
-        <a href="https://www.instagram.com/herosalman1_929/" target="_blank" class="creator-tag text-[#d4af37] text-sm md:text-base font-['Playpen_Sans'] hover:text-[#fceecb] transition-colors pointer-events-auto drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-            Made by : @Herosalman1
-        </a>
+        <a href="https://www.instagram.com/herosalman1_929/" target="_blank" class="creator-tag text-[#d4af37] text-sm md:text-base font-['Playpen_Sans'] hover:text-[#fceecb] transition-colors pointer-events-auto drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">Made by : @Herosalman1</a>
         <div class="pointer-events-auto">
             <input id="volume-checkbox" type="checkbox" checked="">
             <label for="volume-checkbox" title="Toggle sound" class="volume-label">
@@ -169,7 +163,7 @@
     </audio>
 
     <script>
-        // RULE 5: Security shortcuts blocked[cite: 8]
+        // Security block[cite: 7, 8]
         document.addEventListener('contextmenu', event => event.preventDefault());
         document.onkeydown = function(e) {
             if (e.keyCode == 123) return false; 
@@ -202,7 +196,6 @@
             if(audio.paused) { audio.play(); }
         }
 
-        // RULE 4: Data fetch logic via short key from LocalStorage[cite: 8]
         const urlParams = new URLSearchParams(window.location.search);
         const shortKey = urlParams.get('key');
         
@@ -234,20 +227,19 @@
 तुम्हारे साथ खड़ा है ! चाहे हम कितने भी दूर क्यों न हों ! ✨❤️
 
 इस Raksha Bandhan पर बस यही कहना है कि हमारी ये अजीब-सी, प्यारी-सी और थोड़ी पागल
-bonding हमेशा ऐसी ही बनी रहे। लड़ाई भी होगी, teasing भी होगी, एक-दूसरे को परेशान भी
+bonding हमेशा ऐसी ही बनी रहे। लड़ाई भी होगी, teasing होगी, एक-दूसरे को परेशान भी
 करेंगे... लेकिन हमारा रिश्ता हमेशा दिल से रहेगा। ❤️✨
 
 Happy Raksha Bandhan, मेरी प्यारी बहन ! 🥳🧿
 
 और हाँ...
 Gift की उम्मीद मत करना, online भाई हूँ !   प्यार unlimited है !
-                                                         budget limited है ! 😂😂❤️
+                                                             budget limited है ! 😂😂❤️
 
 Stay happy, stay blessed और हमेशा ऐसे ही खुश रहना, ओके ! 😇❤️
 
 तुम्हारा भाई सलमान 🫂❤️`;
 
-        // RULE 4: Read JSON object and hide name/message from URL[cite: 8]
         if (shortKey && localStorage.getItem(shortKey)) {
             try {
                 const savedData = JSON.parse(localStorage.getItem(shortKey));
