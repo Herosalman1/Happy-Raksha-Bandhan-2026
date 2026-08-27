@@ -48,7 +48,7 @@
       <textarea id="customMessage" placeholder="Write your heartfelt message here...">Dear Sister ❤️
 
 हमारी bonding थोड़ी अलग है ! ना हमने साथ में बचपन बिताया, न रोज़ मिलना हुआ, 
-फिर भी पता नहीं कब तुम मेरी life का इतना प्यारा हिस्सा बन गई ! ❤️
+फिर भी पता नहीं कब तुम मेरी life का इतना प्यारा हिस्सा बन गई !❤️
 
 हमारी बातें, एक-दूसरे की टांग खींचना, छोटी-छोटी बातों पर लड़ना, बेवजह 
 एक-दूसरे को परेशान करना और फिर कुछ ही देर बाद ऐसे बात करना जैसे कुछ 
@@ -64,7 +64,7 @@
 एक-दूसरे को समझ लेना ! ✨❤️
 
 तुम मेरी real sister नहीं हो, लेकिन इसका मतलब ये बिल्कुल नहीं कि तुम्हें परेशान करने, 
-तुम्हारी टांग खींचने और तुम्हें lecture देने में मैं कोई कमी छोड़ूँगा ! 😜 आखिर भाई हूँ ! 
+तुम्हारी टांग खींचने और तुम्हें lecture देने में मैं कोई कमी छोड़ूँगा !😜 आखिर भाई हूँ ! 
 इतना हक तो बनता है मेरा ! 😂
 
 लेकिन मज़ाक से अलग, मैं सच में चाहता हूँ कि तुम हमेशा खुश रहो ! जिंदगी में तुम्हें हर वो चीज़ मिले
@@ -97,11 +97,6 @@ Stay happy, stay blessed और हमेशा ऐसे ही खुश र�
   </div>
 
   <script>
-    let defaultMsg = "";
-    document.addEventListener("DOMContentLoaded", () => {
-        defaultMsg = document.getElementById('customMessage').value.trim();
-    });
-
     function toTitleCase(str) {
       return str.toLowerCase().replace(/(?:^|\s)\w/g, function(match) {
         return match.toUpperCase();
@@ -117,7 +112,7 @@ Stay happy, stay blessed और हमेशा ऐसे ही खुश र�
 
     function generateLink() {
       const name = document.getElementById('friendName').value.trim();
-      const currentMsg = document.getElementById('customMessage').value.trim();
+      const msg = document.getElementById('customMessage').value;
       const genBtn = document.getElementById('genBtn');
 
       if (!name) {
@@ -134,18 +129,15 @@ Stay happy, stay blessed और हमेशा ऐसे ही खुश र�
         return;
       }
       
+      // RULE 2: Chhoti aur clean key generate karna[cite: 8]
       const shortKey = 'rk_' + Math.floor(Math.random() * 90000 + 10000);
+      
+      // RULE 3: LocalStorage mein data JSON format mein save karna[cite: 8]
       const payload = {
         name: name,
-        message: currentMsg
+        message: msg
       };
-      
       localStorage.setItem(shortKey, JSON.stringify(payload));
-      
-      let hashData = `n=${encodeURIComponent(name)}`;
-      if (currentMsg !== defaultMsg) {
-          hashData += `&m=${encodeURIComponent(currentMsg)}`;
-      }
       
       let currentUrl = window.location.href.split('?')[0].split('#')[0];
       if(currentUrl.endsWith('index.html')) {
@@ -155,7 +147,8 @@ Stay happy, stay blessed और हमेशा ऐसे ही खुश र�
           currentUrl += '/';
       }
       
-      const fullUrl = `${currentUrl}rakhi.html#${hashData}`;
+      // RULE 2: URL mein koi naam/message nahi jayega, sirf short key[cite: 8]
+      const fullUrl = `${currentUrl}rakhi.html?key=${shortKey}`;
       
       document.getElementById('generatedUrl').value = fullUrl;
       document.getElementById('resultBox').style.display = 'flex';
