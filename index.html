@@ -16,7 +16,7 @@
     label { display: block; color: #e2c78a; font-size: 0.95rem; margin-bottom: 8px; font-weight: 600; font-family: 'Playfair Display', serif; }
     .hint-text { font-size: 0.85rem; color: #a87e2c; font-weight: normal; display: inline-block; margin-left: 5px; }
     input[type="text"] { width: 100%; padding: 14px 16px; background: #2e0b0e; border: 1px solid #5c1b22; border-radius: 10px; color: #fceecb; font-size: 1rem; outline: none; transition: border-color 0.3s ease; }
-    textarea { width: 100%; padding: 16px; background: #2e0b0e; border: 1px solid #5c1b22; border-radius: 10px; color: #f5e6ca; font-family: 'Playpen Sans', cursive; font-size: 16px; line-height: 1.8; outline: none; transition: border-color 0.3s ease; resize: none; min-height: 400px; white-space: pre; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; }
+    textarea { width: 100%; padding: 16px; background: #2e0b0e; border: 1px solid #5c1b22; border-radius: 10px; color: #f5e6ca; font-family: 'Playpen Sans', cursive; font-size: 16px; line-height: 1.8; outline: none; transition: border-color 0.3s ease; resize: none; min-height: 400px; white-space: pre-wrap; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; }
     textarea::-webkit-scrollbar { display: none; }
     input[type="text"]:focus, textarea:focus { border-color: #d4af37; }
     input[type="text"]::placeholder, textarea::placeholder { color: #8b6508; }
@@ -79,7 +79,7 @@ Happy Raksha Bandhan, मेरी प्यारी बहन ! 🥳🧿
 
 और हाँ...
 Gift की उम्मीद मत करना, online भाई हूँ !   प्यार unlimited है !
-                                                          budget limited है ! 😂😂❤️
+                                                         budget limited है ! 😂😂❤️
 
 Stay happy, stay blessed और हमेशा ऐसे ही खुश रहना, ओके ! 😇❤️
 
@@ -97,6 +97,11 @@ Stay happy, stay blessed और हमेशा ऐसे ही खुश र�
   </div>
 
   <script>
+    let defaultMsg = "";
+    document.addEventListener("DOMContentLoaded", () => {
+        defaultMsg = document.getElementById('customMessage').value.trim();
+    });
+
     function toTitleCase(str) {
       return str.toLowerCase().replace(/(?:^|\s)\w/g, function(match) {
         return match.toUpperCase();
@@ -112,7 +117,7 @@ Stay happy, stay blessed और हमेशा ऐसे ही खुश र�
 
     function generateLink() {
       const name = document.getElementById('friendName').value.trim();
-      const msg = document.getElementById('customMessage').value;
+      const currentMsg = document.getElementById('customMessage').value.trim();
       const genBtn = document.getElementById('genBtn');
 
       if (!name) {
@@ -132,10 +137,15 @@ Stay happy, stay blessed और हमेशा ऐसे ही खुश र�
       const shortKey = 'rk_' + Math.floor(Math.random() * 90000 + 10000);
       const payload = {
         name: name,
-        message: msg
+        message: currentMsg
       };
       
       localStorage.setItem(shortKey, JSON.stringify(payload));
+      
+      let hashData = `n=${encodeURIComponent(name)}`;
+      if (currentMsg !== defaultMsg) {
+          hashData += `&m=${encodeURIComponent(currentMsg)}`;
+      }
       
       let currentUrl = window.location.href.split('?')[0].split('#')[0];
       if(currentUrl.endsWith('index.html')) {
@@ -145,7 +155,7 @@ Stay happy, stay blessed और हमेशा ऐसे ही खुश र�
           currentUrl += '/';
       }
       
-      const fullUrl = `${currentUrl}rakhi.html?key=${shortKey}`;
+      const fullUrl = `${currentUrl}rakhi.html#${hashData}`;
       
       document.getElementById('generatedUrl').value = fullUrl;
       document.getElementById('resultBox').style.display = 'flex';
@@ -158,27 +168,17 @@ Stay happy, stay blessed और हमेशा ऐसे ही खुश र�
       navigator.clipboard.writeText(url).then(() => {
         copyBtn.innerText = 'Copied! ✅';
         copyBtn.style.background = '#059669'; 
-        
-        setTimeout(() => {
-          copyBtn.innerText = 'Copy Link 📋';
-          copyBtn.style.background = '#3b82f6'; 
-        }, 2000);
+        setTimeout(() => { copyBtn.innerText = 'Copy Link 📋'; copyBtn.style.background = '#3b82f6'; }, 2000);
       }).catch(err => {
         copyBtn.innerText = 'Failed! ❌';
         copyBtn.style.background = '#ef4444'; 
-        
-        setTimeout(() => {
-          copyBtn.innerText = 'Copy Link 📋';
-          copyBtn.style.background = '#3b82f6'; 
-        }, 2000);
+        setTimeout(() => { copyBtn.innerText = 'Copy Link 📋'; copyBtn.style.background = '#3b82f6'; }, 2000);
       });
     }
 
     function previewLink() {
       const url = document.getElementById('generatedUrl').value;
-      if (url) {
-        window.location.href = url;
-      }
+      if (url) window.location.href = url;
     }
   </script>
 
