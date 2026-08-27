@@ -89,7 +89,7 @@
       transition: border-color 0.3s ease;
       resize: none;
       min-height: 400px; 
-      white-space: pre; 
+      white-space: pre-wrap; 
       overflow-x: auto;
       scrollbar-width: none;
       -ms-overflow-style: none;
@@ -187,7 +187,7 @@
 महसूस कर रहे हों। ❤️
 
 कई बार हम एक जैसी चीज़ें साथ में करते हैं, एक जैसी बातें सोचते हैं और एक-दूसरे को बिना ज्यादा
-कुछ बताए ही समझ जाते हैं !शायद यही हमारी bonding की सबसे अच्छी बात है ! दूर रहकर भी
+कुछ बताए ही समझ जाते हैं ! शायद यही हमारी bonding की सबसे अच्छी बात है ! दूर रहकर भी
 एक-दूसरे को समझ लेना ! ✨❤️
 
 तुम मेरी real sister नहीं हो, लेकिन इसका मतलब ये बिल्कुल नहीं कि तुम्हें परेशान करने, 
@@ -205,8 +205,8 @@ bonding हमेशा ऐसी ही बनी रहे। लड़ाई 
 Happy Raksha Bandhan, मेरी प्यारी बहन ! 🥳🧿
 
 और हाँ...
-Gift की उम्मीद मत करना, online भाई हूँ !   प्यार unlimited है !
-                                                             budget limited है ! 😂😂❤️
+Gift की उम्मीद मत करना, online भाई हूँ ! प्यार unlimited है !
+budget limited है ! 😂😂❤️
 
 Stay happy, stay blessed और हमेशा ऐसे ही खुश रहना, ओके ! 😇❤️
 
@@ -239,6 +239,7 @@ Stay happy, stay blessed और हमेशा ऐसे ही खुश र�
 
     function generateLink() {
       const name = document.getElementById('friendName').value.trim();
+      const message = document.getElementById('customMessage').value;
       const genBtn = document.getElementById('genBtn');
 
       if (!name) {
@@ -255,13 +256,16 @@ Stay happy, stay blessed और हमेशा ऐसे ही खुश र�
         return;
       }
       
+      // Store custom message in localStorage using a unique key
+      const msgKey = 'rakhi_msg_' + Date.now();
+      localStorage.setItem(msgKey, message);
+
       const currentUrl = window.location.href.split('?')[0];
       let baseUrl = currentUrl.replace('index.html', '');
       if (!baseUrl.endsWith('/')) baseUrl += '/';
       baseUrl += 'rakhi.html';
       
-      // Fixed: Sirf name pass hoga URL me taaki URL size chhota rahe aur error na aaye
-      const fullUrl = `${baseUrl}?name=${encodeURIComponent(name)}`;
+      const fullUrl = `${baseUrl}?name=${encodeURIComponent(name)}&key=${msgKey}`;
       
       document.getElementById('generatedUrl').value = fullUrl;
       document.getElementById('resultBox').style.display = 'flex';
