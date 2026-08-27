@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <!-- Forced 1040 width desktop layout for uniform PC/Mobile scaling -->
     <meta name="viewport" content="width=1040">
     <title>Happy Raksha Bandhan</title>
     
@@ -24,7 +23,6 @@
             user-select: none;
         }
         
-        /* Page Transition Utility */
         .page { display: none; width: 100%; height: 100%; position: absolute; inset: 0; }
         .page.active { display: flex; animation: fadeIn 0.8s ease forwards; }
         
@@ -33,7 +31,6 @@
             to { opacity: 1; }
         }
 
-        /* Smooth Cinematic Fade Animation */
         @keyframes cinematicFade {
             0% { opacity: 0; filter: blur(10px); transform: translateY(15px); }
             30% { opacity: 1; filter: blur(0px); transform: translateY(0px); }
@@ -55,7 +52,6 @@
             animation: cinematicFade 3.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        /* Slow floating animation for emojis */
         @keyframes floatSlow {
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-6px); }
@@ -65,7 +61,6 @@
             animation: floatSlow 3s ease-in-out infinite;
         }
 
-        /* Animations */
         @keyframes pulseGlow {
             0%, 100% { filter: drop-shadow(0 0 15px rgba(212,175,55,0.4)); transform: scale(1); }
             50% { filter: drop-shadow(0 0 30px rgba(212,175,55,0.8)); transform: scale(1.05); }
@@ -78,19 +73,16 @@
         .glow-effect { animation: pulseGlow 2.5s infinite; cursor: pointer; }
         .float-effect { animation: rakhiFloat 4s ease-in-out infinite; cursor: pointer; }
         
-        /* Backgrounds */
         .bg-intro-gradient { background: radial-gradient(circle at center, #5a0403 0%, #1c0406 60%, #050505 100%); }
         .bg-gradient-page1 { background: radial-gradient(circle at center, #6b0504 0%, #2a0000 100%); }
         .bg-gradient-page2 { background: radial-gradient(circle at center, #5a0403 0%, #200000 100%); }
         .bg-gradient-page34 { background: radial-gradient(circle at center, #420a0c 0%, #1a0303 100%); }
         
-        /* Custom UI Elements */
         .envelope-bg { background: linear-gradient(145deg, #4a151b 0%, #2e0b0e 100%); }
         .envelope-flap { background: linear-gradient(#5c1b22 0%, #3b0e12 100%); clip-path: polygon(0 0, 100% 0, 50% 100%); }
         .btn-outline { border: 1px solid rgba(212,175,55,0.6); color: #d4af37; transition: all 0.3s; cursor: pointer; border-radius: 8px; }
         .btn-outline:hover { background: rgba(212,175,55,0.1); border-color: #d4af37; color: #fceecb; }
         
-        /* Typewriter Cursor */
         .cursor::after {
             content: '|';
             animation: blink 1s step-end infinite;
@@ -99,7 +91,6 @@
         }
         @keyframes blink { 50% { opacity: 0; } }
 
-        /* Volume Toggle Styles */
         #volume-checkbox { display: none; }
         .volume-label { cursor: pointer; width: 28px; height: 28px; display: block; }
         .volume-label svg { width: 100%; height: 100%; fill: #d4af37; transition: fill 0.3s ease; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5)); }
@@ -107,7 +98,6 @@
         #volume-checkbox:checked + .volume-label svg:nth-child(2) { display: none; }
         #volume-checkbox:not(:checked) + .volume-label svg:nth-child(1) { display: none; }
         
-        /* Hide scrollbar */
         .scrollbar-hide::-webkit-scrollbar { display: none; }
         .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
@@ -138,7 +128,6 @@
             <div class="flex-1 flex justify-center md:justify-end md:pr-10 z-10 w-full">
                 <img src="https://rakshabandhan-b83.pages.dev/images/letter.png" alt="Happy Raksha Bandhan" class="w-[300px] md:w-[450px] object-contain drop-shadow-2xl">
             </div>
-            
             <div class="flex-1 flex flex-col items-center md:items-start md:pl-10 justify-center z-10 w-full">
                 <div class="flex flex-col items-center">
                     <img src="https://rakshabandhan-b83.pages.dev/images/rakhi.png" alt="Rakhi" onclick="goToPage(2)" class="w-[220px] md:w-[350px] object-contain float-effect filter drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)]">
@@ -160,11 +149,9 @@
             <div class="z-10 text-center max-w-2xl flex flex-col items-center">
                 <h1 class="text-2xl md:text-4xl font-bold text-[#fceecb] tracking-wider uppercase drop-shadow-md font-['Cinzel']">Happy Raksha Bandhan</h1>
                 <p class="text-sm md:text-base text-[#e2c78a] mt-3 italic drop-shadow-md">A bond that grows stronger with every thread.</p>
-                
                 <div class="my-10 w-52 h-52 sm:w-64 sm:h-64 rounded-full bg-white p-[2px] border border-[#d4af37]/40 shadow-[0_15px_35px_rgba(0,0,0,0.6)] flex items-center justify-center overflow-hidden mx-auto">
                     <img alt="Raksha Bandhan Animation" src="https://rakshabandhan-b83.pages.dev/gifs/gif1.gif" class="w-full h-full object-cover rounded-full">
                 </div>
-
                 <button onclick="goToPage(4)" class="btn-outline px-8 py-2 text-xs uppercase tracking-[0.2em] font-['Cinzel'] bg-transparent">Next</button>
             </div>
         </div>
@@ -174,30 +161,24 @@
             <div class="z-10 text-center flex flex-col items-center">
                 <h1 class="text-2xl md:text-3xl font-bold text-[#fceecb] tracking-wider uppercase drop-shadow-md font-['Cinzel']">A Letter, Just For My Sister</h1>
                 <p class="text-sm text-[#e2c78a] mt-2 italic drop-shadow-md">Tap the envelope to unseal</p>
-                
                 <div class="relative w-[280px] sm:w-[320px] h-[190px] sm:h-[210px] mt-12 cursor-pointer hover:scale-105 transition-transform duration-500 shadow-[0_20px_40px_rgba(0,0,0,0.7)]" onclick="goToPage(5)">
                     <div class="absolute inset-0 rounded-sm border border-[#d4af37]/50 envelope-bg"></div>
                     <svg viewBox="0 0 280 190" class="absolute inset-0 w-full h-full pointer-events-none opacity-60">
                         <line x1="0" y1="190" x2="140" y2="100" stroke="#d4af37" stroke-width="1"></line>
                         <line x1="280" y1="190" x2="140" y2="100" stroke="#d4af37" stroke-width="1"></line>
                     </svg>
-                    
                     <div class="absolute top-0 left-0 w-full h-[55%] z-10 origin-top">
                         <div class="absolute inset-0 border-b border-[#d4af37]/40 envelope-flap drop-shadow-md"></div>
                     </div>
-                    
-                    <!-- Wax Seal -->
                     <div class="absolute top-[50%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
                         <div class="w-[45px] h-[45px] sm:w-[50px] sm:h-[50px] rounded-full flex items-center justify-center border border-[#d4af37]/80 shadow-[0_4px_10px_rgba(0,0,0,0.5)] bg-gradient-to-br from-[#e0b943] via-[#b8860b] to-[#8b6508]">
                             <span class="font-['Cinzel'] text-sm text-[#3b0e12] font-bold">✦</span>
                         </div>
                     </div>
-                    
                     <div class="absolute bottom-5 w-full text-center z-20">
                         <div class="font-['Cinzel'] text-[8px] sm:text-[9px] tracking-[0.2em] text-[#e2c78a] uppercase opacity-70">Tap to unseal ♡</div>
                     </div>
                 </div>
-                
                 <div class="mt-12 opacity-50 flex items-center gap-2">
                     <span class="w-1.5 h-1.5 rounded-full bg-[#d4af37]"></span>
                     <span class="w-1.5 h-1.5 rounded-full bg-[#d4af37]"></span>
@@ -209,16 +190,13 @@
         <!-- PAGE 5: The Letter Modal & Restart -->
         <div id="page5" class="page bg-[#1a0505]/95 backdrop-blur-sm flex-col items-center justify-center p-4">
             <div class="w-full max-w-3xl bg-gradient-to-b from-[#3a0d11] to-[#1c0406] rounded-xl p-8 sm:p-10 border border-[#d4af37]/40 shadow-[0_0_50px_rgba(0,0,0,0.8)] relative flex flex-col mx-auto">
-                
                 <button onclick="goToPage(4)" class="absolute top-4 right-4 text-[#e2c78a]/50 hover:text-[#d4af37] text-2xl transition-colors">×</button>
-                
                 <div class="text-center mb-6 border-b border-[#d4af37]/20 pb-4">
                     <h3 class="text-lg md:text-xl font-bold text-[#fceecb] uppercase tracking-wider drop-shadow-md font-['Cinzel']">Happy Raksha Bandhan</h3>
                     <p id="sister-name-display" class="text-xs md:text-sm text-[#e2c78a] mt-2 font-normal">Just for My Sister</p>
                 </div>
                 
                 <div id="letter-scroll-container" class="flex-1 overflow-x-auto overflow-y-auto mb-6 scrollbar-hide min-h-[200px] max-h-[60vh] pr-2">
-                    <!-- white-space: pre-wrap guarantees exact space rendering without breaking -->
                     <p id="typewriter-text" style="white-space: pre-wrap;" class="text-[16px] leading-[1.8] text-[#f5e6ca] text-left font-['Playpen_Sans'] cursor"></p>
                 </div>
                 
@@ -232,12 +210,11 @@
 
     </main>
 
-    <!-- Bottom Bar -->
+    <!-- Bottom Bar: Creator Link & Volume Toggle -->
     <div id="bottom-bar" class="fixed bottom-0 left-0 w-full p-4 flex justify-between items-end z-50 pointer-events-none">
         <a href="https://www.instagram.com/herosalman1_929/" target="_blank" class="creator-tag text-[#d4af37] text-sm md:text-base font-['Playpen_Sans'] hover:text-[#fceecb] transition-colors pointer-events-auto drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
             Made by : @Herosalman1
         </a>
-        
         <div class="pointer-events-auto">
             <input id="volume-checkbox" type="checkbox" checked="">
             <label for="volume-checkbox" title="Toggle sound" class="volume-label">
@@ -253,17 +230,16 @@
     </audio>
 
     <script>
-        // Security: Block Right-click, Inspect, View Source shortcuts
+        // Security logic[cite: 7]
         document.addEventListener('contextmenu', event => event.preventDefault());
         document.onkeydown = function(e) {
-            if (e.keyCode == 123) return false; // F12
-            if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false; // Ctrl+Shift+I
-            if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) return false; // Ctrl+Shift+C
-            if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) return false; // Ctrl+Shift+J
-            if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false; // Ctrl+U
+            if (e.keyCode == 123) return false; 
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false; 
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) return false; 
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) return false; 
+            if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false; 
         };
 
-        // Cinematic Intro Logic
         window.addEventListener('DOMContentLoaded', () => {
             const step1 = document.getElementById('step1');
             const step2 = document.getElementById('step2');
@@ -271,7 +247,6 @@
 
             setTimeout(() => { step1.classList.add('show'); }, 600);
             setTimeout(() => { step1.classList.remove('show'); }, 4200);
-
             setTimeout(() => { step2.classList.add('show'); }, 4700);
             setTimeout(() => { 
                 step2.classList.remove('show'); 
@@ -292,7 +267,6 @@
             }
         }
 
-        // Fetch Data using the clean short key from LocalStorage
         const urlParams = new URLSearchParams(window.location.search);
         const shortKey = urlParams.get('key');
         
@@ -331,7 +305,7 @@ Happy Raksha Bandhan, मेरी प्यारी बहन ! 🥳🧿
 
 और हाँ...
 Gift की उम्मीद मत करना, online भाई हूँ !   प्यार unlimited है !
-                                                             budget limited है ! 😂😂❤️
+                                                          budget limited है ! 😂😂❤️
 
 Stay happy, stay blessed और हमेशा ऐसे ही खुश रहना, ओके ! 😇❤️
 
@@ -364,7 +338,6 @@ Stay happy, stay blessed और हमेशा ऐसे ही खुश र�
             const textElement = document.getElementById('typewriter-text');
             const scrollContainer = document.getElementById('letter-scroll-container');
             
-            // Clean text injection preventing any raw &nbsp; or html codes
             textElement.textContent = '';
             clearInterval(typeInterval);
             
