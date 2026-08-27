@@ -159,11 +159,11 @@
 
     <!-- Audio -->
     <audio id="hiddenAudio" loop>
-      <source src="https://scontent-arn2-1.cdninstagram.com/o1/v/t2/f2/m78/AQNy4-cLDAUsBi8Ke9PUsJ1YGvmKY4vxVaGmI-1MQyPtykPp_BcjNcTxXn_TO2DnanxyUEvrWVHk63CIPACmI2OMDidn05Pk3WJWHyg.mp4?_nc_cat=109&_nc_sid=9ca052&_nc_ht=scontent-arn2-1.cdninstagram.com&_nc_ohc=thYyzc9ACnIQ7kNvwG04KqC&efg=eyJ2ZW5jb2RlX3RhZyI6ImlnLXhwdmRzLmNsaXBzLmlnd3d3LUMzLmZhc2hfbG5faGVhYWNfdmJyM19hdWRpbyIsInZpZGVvX2lkIjpudWxsLCJvaWxfdXJsZ2VuX2FwcF9pZCI6OTM2NjE5NzQzMzkyNDU5LCJjbGllbnRfbmFtZSI6ImlnIiwieHB2X2Fzc2V0X2lkIjoxMDU1NDA2MjY0MTMxOTMxLCJhc3NldF9hZ2VfZGF5cyI6MSwidmlfdXNlY2FzZV9pZCI6MTAwOTksImR1cmF0aW9uX3MiOjMwLCJiaXRyYXRlIjo2NDgxNCguidXJsZ2VuX3NvdXJjZSI6Ind3dyJ9&ccb=17-1&_nc_gid=DSktYYaKvxSpRvrXr9xnUw&_nc_ss=7ba8c&_nc_zt=28&oh=00_AQF1xmIKEcHrCr8XriyDOZ47V6NHJda80Za3K4lai3VoTA&oe=6A90FB9A">
+      <source src="https://scontent-arn2-1.cdninstagram.com/o1/v/t2/f2/m78/AQNy4-cLDAUsBi8Ke9PUsJ1YGvmKY4vxVaGmI-1MQyPtykPp_BcjNcTxXn_TO2DnanxyUEvrWVHk63CIPACmI2OMDidn05Pk3WJWHyg.mp4?_nc_cat=109&_nc_sid=9ca052&_nc_ht=scontent-arn2-1.cdninstagram.com&_nc_ohc=thYyzc9ACnIQ7kNvwG04KqC&efg=eyJ2ZW5jb2RlX3RhZyI6ImlnLXhwdmRzLmNsaXBzLmlnd3d3LUMzLmRhc2hfbG5faGVhYWNfdmJyM19hdWRpbyIsInZpZGVvX2lkIjpudWxsLCJvaWxfdXJsZ2VuX2FwcF9pZCI6OTM2NjE5NzQzMzkyNDU5LCJjbGllbnRfbmFtZSI6ImlnIiwieHB2X2Fzc2V0X2lkIjoxMDU1NDA2MjY0MTMxOTMxLCJhc3NldF9hZ2VfZGF5cyI6MSwidmlfdXNlY2FzZV9pZCI6MTAwOTksImR1cmF0aW9uX3MiOjMwLCJiaXRyYXRlIjo2NDgxNCguidXJsZ2VuX3NvdXJjZSI6Ind3dyJ9&ccb=17-1&_nc_gid=DSktYYaKvxSpRvrXr9xnUw&_nc_ss=7ba8c&_nc_zt=28&oh=00_AQF1xmIKEcHrCr8XriyDOZ47V6NHJda80Za3K4lai3VoTA&oe=6A90FB9A">
     </audio>
 
     <script>
-        // Security block (Requirement 5)[cite: 8]
+        // Security block[cite: 7, 8]
         document.addEventListener('contextmenu', event => event.preventDefault());
         document.onkeydown = function(e) {
             if (e.keyCode == 123) return false; 
@@ -176,16 +176,19 @@
         window.addEventListener('DOMContentLoaded', () => {
             const step1 = document.getElementById('step1');
             const step2 = document.getElementById('step2');
-            const btnContainer = document.getElementById('intro-btn-container');
+            const btnContainer = document.getElementById('intro-df-container');
 
             setTimeout(() => { step1.classList.add('show'); }, 600);
             setTimeout(() => { step1.classList.remove('show'); }, 4200);
             setTimeout(() => { step2.classList.add('show'); }, 4700);
             setTimeout(() => { 
                 step2.classList.remove('show'); 
-                btnContainer.classList.remove('opacity-0');
-                btnContainer.classList.add('opacity-100');
-                btnContainer.style.position = 'relative';
+                const btnContainerReal = document.getElementById('intro-btn-container');
+                if(btnContainerReal) {
+                    btnContainerReal.classList.remove('opacity-0');
+                    btnContainerReal.classList.add('opacity-100');
+                    btnContainerReal.style.position = 'relative';
+                }
             }, 8400);
         });
 
@@ -196,12 +199,10 @@
             if(audio.paused) { audio.play(); }
         }
 
-        // Dual Fetch Mechanism: LocalStorage + URL Parameter Fallback (Requirement 4)[cite: 8]
+        // Direct Name Reader from URL parameter (?name=...)
         const urlParams = new URLSearchParams(window.location.search);
-        const shortKey = urlParams.get('key');
-        const urlName = urlParams.get('name');
-        
-        let recipientName = "";
+        const receiverName = urlParams.get('name');
+
         let letterContent = `Dear Sister ❤️
 
 हमारी bonding थोड़ी अलग है ! ना हमने साथ में बचपन बिताया, न रोज़ मिलना हुआ, 
@@ -241,23 +242,9 @@ Stay happy, stay blessed और हमेशा ऐसे ही खुश र�
 
 तुम्हारा भाई सलमान 🫂❤️`;
 
-        // 1. Try fetching from LocalStorage (Requirement 4)[cite: 8]
-        if (shortKey && localStorage.getItem(shortKey)) {
-            try {
-                const savedData = JSON.parse(localStorage.getItem(shortKey));
-                recipientName = savedData.name;
-                letterContent = savedData.message;
-            } catch(e) { console.error("Storage data parse error"); }
-        }
-        
-        // 2. Backup check: Direct URL name parameter (Guaranteed for mobile devices)
-        if (!recipientName && urlName) {
-            recipientName = urlName;
-        }
-
-        // Display name dynamically (Requirement 4)[cite: 8]
-        if (recipientName) {
-            document.getElementById('sister-name-display').innerText = `Just for My Sister ${recipientName}`;
+        // Display name directly on receiver page
+        if (receiverName) {
+            document.getElementById('sister-name-display').innerText = `Just for My Sister ${receiverName}`;
         }
 
         const volumeCheckbox = document.getElementById('volume-checkbox');
