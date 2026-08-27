@@ -27,7 +27,6 @@
     .card {
       background: #1c0406;
       width: 100%;
-      /* Exact 768px width (Tailwind max-w-3xl) to match final receiver page */
       max-width: 768px; 
       padding: 40px 30px;
       border-radius: 20px;
@@ -76,7 +75,6 @@
       transition: border-color 0.3s ease;
     }
     
-    /* Textarea styled EXACTLY like the final receiver page */
     textarea {
       width: 100%;
       padding: 16px;
@@ -84,14 +82,14 @@
       border: 1px solid #5c1b22;
       border-radius: 10px;
       color: #f5e6ca;
-      font-family: 'Playpen Sans', cursive; /* Match Final Font */
-      font-size: 16px; /* Match Final Size */
-      line-height: 1.8; /* Match Final Line Gap */
+      font-family: 'Playpen Sans', cursive; 
+      font-size: 16px; 
+      line-height: 1.8; 
       outline: none;
       transition: border-color 0.3s ease;
       resize: none;
-      min-height: 400px; /* Bada height taki ache se dikhe */
-      white-space: pre; /* Taaki manual spaces wese hi dikhe */
+      min-height: 400px; 
+      white-space: pre; 
       overflow-x: auto;
       scrollbar-width: none;
       -ms-overflow-style: none;
@@ -172,9 +170,8 @@
     <div class="input-group">
       <label for="customMessage">
         Custom Letter / Message:
-        <span class="hint-text">(जैसा यहा लिखोगे वैसा ही लेटर पर टाइप होगा Same To Same)</span>
+        <span class="hint-text">(By default pre-filled)</span>
       </label>
-      <!-- Message updated exactly as provided -->
       <textarea id="customMessage" placeholder="Write your heartfelt message here...">Dear Sister ❤️
 
 हमारी bonding थोड़ी अलग है ! ना हमने साथ में बचपन बिताया, न रोज़ मिलना हुआ, 
@@ -242,7 +239,6 @@ Stay happy, stay blessed और हमेशा ऐसे ही खुश र�
 
     function generateLink() {
       const name = document.getElementById('friendName').value.trim();
-      const msg = document.getElementById('customMessage').value;
       const genBtn = document.getElementById('genBtn');
 
       if (!name) {
@@ -264,7 +260,8 @@ Stay happy, stay blessed और हमेशा ऐसे ही खुश र�
       if (!baseUrl.endsWith('/')) baseUrl += '/';
       baseUrl += 'rakhi.html';
       
-      const fullUrl = `${baseUrl}?name=${encodeURIComponent(name)}&msg=${encodeURIComponent(msg)}`;
+      // Fixed: Sirf name pass hoga URL me taaki URL size chhota rahe aur error na aaye
+      const fullUrl = `${baseUrl}?name=${encodeURIComponent(name)}`;
       
       document.getElementById('generatedUrl').value = fullUrl;
       document.getElementById('resultBox').style.display = 'flex';
