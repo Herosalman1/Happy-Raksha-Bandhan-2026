@@ -134,7 +134,8 @@
                 </div>
                 
                 <div id="letter-scroll-container" class="flex-1 overflow-x-auto overflow-y-auto mb-6 scrollbar-hide min-h-[200px] max-h-[60vh] pr-2">
-                    <p id="typewriter-text" class="text-[16px] leading-[1.8] text-[#f5e6ca] text-left font-['Playpen_Sans'] cursor"></p>
+                    <!-- FIXED: white-space: pre-wrap preserves exact line breaks and formatting -->
+                    <p id="typewriter-text" style="white-space: pre-wrap;" class="text-[16px] leading-[1.8] text-[#f5e6ca] text-left font-['Playpen_Sans'] cursor"></p>
                 </div>
                 
                 <div class="flex justify-center mt-2 pt-4">
@@ -163,7 +164,7 @@
     </audio>
 
     <script>
-        // Security block[cite: 7, 8]
+        // Security block (Requirement 5)[cite: 8]
         document.addEventListener('contextmenu', event => event.preventDefault());
         document.onkeydown = function(e) {
             if (e.keyCode == 123) return false; 
@@ -196,7 +197,7 @@
             if(audio.paused) { audio.play(); }
         }
 
-        // Read short key from URL and fetch data from LocalStorage (Requirement 4)
+        // Read short key from URL and fetch data from LocalStorage (Requirement 4)[cite: 8]
         const urlParams = new URLSearchParams(window.location.search);
         const shortKey = urlParams.get('key');
         
@@ -215,9 +216,8 @@
 है कि कुछ ठीक नहीं है। कभी-कभी तो ऐसा लगता है जैसे हम दोनों एक ही समय पर एक ही चीज़
 महसूस कर रहे हों। ❤️
 
-कई बार हम एक जैसी चीज़ें साथ में करते हैं, एक जैसी बातें सोचते हैं और एक-दूसरे को बिना ज्यादा
-कुछ बताए ही समझ जाते हैं ! शायद यही हमारी bonding की सबसे अच्छी बात है ! दूर रहकर भी
-एक-दूसरे को समझ लेना ! ✨❤️
+कई बार हम एक जैसी चीज़ें साथ में करते हैं, एक जैसी बातें सोचते हैं और एक-एक करके एक-दूसरे को 
+बिना ज्यादा कुछ बताए ही समझ जाते हैं ! शायद यही हमारी bonding की सबसे अच्छी बात है !
 
 तुम मेरी real sister नहीं हो, लेकिन इसका मतलब ये बिल्कुल नहीं कि तुम्हें परेशान करने, 
 तुम्हारी टांग खींचने और तुम्हें lecture देने में मैं कोई कमी छोड़ूँगा !😜 आखिर भाई हूँ ! 
@@ -235,7 +235,7 @@ Happy Raksha Bandhan, मेरी प्यारी बहन ! 🥳🧿
 
 और हाँ...
 Gift की उम्मीद मत करना, online भाई हूँ !   प्यार unlimited है !
-                                                             budget limited है ! 😂😂❤️
+                                                         budget limited है ! 😂😂❤️
 
 Stay happy, stay blessed और हमेशा ऐसे ही खुश रहना, ओके ! 😇❤️
 
