@@ -16,7 +16,7 @@
     label { display: block; color: #e2c78a; font-size: 0.95rem; margin-bottom: 8px; font-weight: 600; font-family: 'Playfair Display', serif; }
     .hint-text { font-size: 0.85rem; color: #a87e2c; font-weight: normal; display: inline-block; margin-left: 5px; }
     input[type="text"] { width: 100%; padding: 14px 16px; background: #2e0b0e; border: 1px solid #5c1b22; border-radius: 10px; color: #fceecb; font-size: 1rem; outline: none; transition: border-color 0.3s ease; }
-    textarea { width: 100%; padding: 16px; background: #2e0b0e; border: 1px solid #5c1b22; border-radius: 10px; color: #f5e6ca; font-family: 'Playpen Sans', cursive; font-size: 16px; line-height: 1.8; outline: none; transition: border-color 0.3s ease; resize: none; min-height: 400px; white-space: pre; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; }
+    textarea { width: 100%; padding: 16px; background: #2e0b0e; border: 1px solid #5c1b22; border-radius: 10px; color: #f5e6ca; font-family: 'Playpen Sans', cursive; font-size: 16px; line-height: 1.8; outline: none; transition: border-color 0.3s ease; resize: none; min-height: 400px; white-space: pre-wrap; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; }
     textarea::-webkit-scrollbar { display: none; }
     input[type="text"]:focus, textarea:focus { border-color: #d4af37; }
     input[type="text"]::placeholder, textarea::placeholder { color: #8b6508; }
@@ -59,9 +59,8 @@
 है कि कुछ ठीक नहीं है। कभी-कभी तो ऐसा लगता है जैसे हम दोनों एक ही समय पर एक ही चीज़
 महसूस कर रहे हों। ❤️
 
-कई बार हम एक जैसी चीज़ें साथ में करते हैं, एक जैसी बातें सोचते हैं और एक-दूसरे को बिना ज्यादा
-कुछ बताए ही समझ जाते हैं ! शायद यही हमारी bonding की सबसे अच्छी बात है ! दूर रहकर भी
-एक-दूसरे को समझ लेना ! ✨❤️
+कई बार हम एक जैसी चीज़ें साथ में करते हैं, एक जैसी बातें सोचते हैं और एक-एक करके एक-दूसरे को 
+बिना ज्यादा कुछ बताए ही समझ जाते हैं ! शायद यही हमारी bonding की सबसे अच्छी बात है !
 
 तुम मेरी real sister नहीं हो, लेकिन इसका मतलब ये बिल्कुल नहीं कि तुम्हें परेशान करने, 
 तुम्हारी टांग खींचने और तुम्हें lecture देने में मैं कोई कमी छोड़ूँगा !😜 आखिर भाई हूँ ! 
@@ -72,7 +71,7 @@
 तुम्हारे साथ खड़ा है ! चाहे हम कितने भी दूर क्यों न हों ! ✨❤️
 
 इस Raksha Bandhan पर बस यही कहना है कि हमारी ये अजीब-सी, प्यारी-सी और थोड़ी पागल
-bonding हमेशा ऐसी ही बनी रहे। लड़ाई भी होगी, teasing होगी, एक-दूसरे को परेशान भी
+bonding हमेशा ऐसी ही बनी रहे। लड़ाई होगी, teasing होगी, एक-दूसरे को परेशान भी
 करेंगे... लेकिन हमारा रिश्ता हमेशा दिल से रहेगा। ❤️✨
 
 Happy Raksha Bandhan, मेरी प्यारी बहन ! 🥳🧿
@@ -96,11 +95,6 @@ Stay happy, stay blessed और हमेशा ऐसे ही खुश र�
   </div>
 
   <script>
-    let defaultMsg = "";
-    document.addEventListener("DOMContentLoaded", () => {
-        defaultMsg = document.getElementById('customMessage').value.trim();
-    });
-
     function toTitleCase(str) {
       return str.toLowerCase().replace(/(?:^|\s)\w/g, function(match) { return match.toUpperCase(); });
     }
@@ -113,7 +107,7 @@ Stay happy, stay blessed और हमेशा ऐसे ही खुश र�
 
     function generateLink() {
       const name = document.getElementById('friendName').value.trim();
-      const currentMsg = document.getElementById('customMessage').value;
+      const msg = document.getElementById('customMessage').value;
       const genBtn = document.getElementById('genBtn');
 
       if (!name) {
@@ -129,14 +123,18 @@ Stay happy, stay blessed और हमेशा ऐसे ही खुश र�
       }
       
       const shortKey = 'rk_' + Math.floor(Math.random() * 90000 + 10000);
-      const payload = { name: name, message: currentMsg };
+      const payload = { name: name, message: msg };
+      
+      // Save secure JSON object in localStorage (Requirement 3)[cite: 8]
       localStorage.setItem(shortKey, JSON.stringify(payload));
       
       let currentUrl = window.location.href.split('?')[0].split('#')[0];
       if(currentUrl.endsWith('index.html')) currentUrl = currentUrl.replace('index.html', '');
       if (!currentUrl.endsWith('/')) currentUrl += '/';
       
-      const fullUrl = `${currentUrl}rakhi.html?key=${shortKey}`;
+      // Pass both key and name as backup so mobile never misses it
+      const fullUrl = `${currentUrl}rakhi.html?key=${shortKey}&name=${encodeURIComponent(name)}`;
+      
       document.getElementById('generatedUrl').value = fullUrl;
       document.getElementById('resultBox').style.display = 'flex';
     }
