@@ -48,22 +48,22 @@
       <textarea id="customMessage" placeholder="Write your heartfelt message here...">Dear Sister ❤️
 
 हमारी bonding थोड़ी अलग है ! ना हमने साथ में बचपन बिताया, न रोज़ मिलना हुआ, 
-फिर भी पता नहीं कब तुम मेरी life का इतना प्यारा हिस्सा बन गई ! ❤️
+फिर भी पता नहीं कब तुम मेरी life का इतना प्यारा हिस्सा बन गई !❤️
 
 हमारी बातें, एक-दूसरे की टांग खींचना, छोटी-छोटी बातों पर लड़ना, बेवजह 
 एक-दूसरे को परेशान करना और फिर कुछ ही देर बाद ऐसे बात करना जैसे कुछ 
-हुआ ही नहीं ! यही तो हमारी भाई-बहन वाली bonding है ! 😂
+हुआ ही नहीं ! यही तो हमारी भाई-बहन वाली bonding है। 😂
 
 कभी-कभी तुम कुछ बताती भी नहीं हो, फिर भी मुझे पता चल जाता है कि तुम दुखी हो या कोई बात
-तुम्हें परेशान कर रही है ! 😅 और कभी तुम दुखी होती हो तो बिना तुम्हारे बताए ही मुझे पता चल जाता
+तुम्हें परेशान कर रही है। 😅 और कभी तुम दुखी होती हो तो बिना तुम्हारे बताए ही मुझे पता चल जाता
 है कि कुछ ठीक नहीं है। कभी-कभी तो ऐसा लगता है जैसे हम दोनों एक ही समय पर एक ही चीज़
-महसूस कर रहे हों ! ❤️
+महसूस कर रहे हों। ❤️
 
 कई बार हम एक जैसी चीज़ें साथ में करते हैं, एक जैसी बातें सोचते हैं और एक-एक करके एक-दूसरे को 
 बिना ज्यादा कुछ बताए ही समझ जाते हैं ! शायद यही हमारी bonding की सबसे अच्छी बात है !
 
 तुम मेरी real sister नहीं हो, लेकिन इसका मतलब ये बिल्कुल नहीं कि तुम्हें परेशान करने, 
-तुम्हारी टांग खींचने और तुम्हें lecture देने में मैं कोई कमी छोड़ूँगा ! 😜 आखिर भाई हूँ ! 
+तुम्हारी टांग खींचने और तुम्हें lecture देने में मैं कोई कमी छोड़ूँगा !😜 आखिर भाई हूँ ! 
 इतना हक तो बनता है मेरा ! 😂
 
 लेकिन मज़ाक से अलग, मैं सच में चाहता हूँ कि तुम हमेशा खुश रहो ! जिंदगी में तुम्हें हर वो चीज़ मिले
@@ -107,6 +107,7 @@ Stay happy, stay blessed और हमेशा ऐसे ही खुश र�
 
     function generateLink() {
       const name = document.getElementById('friendName').value.trim();
+      const message = document.getElementById('customMessage').value.trim();
       const genBtn = document.getElementById('genBtn');
 
       if (!name) {
@@ -121,12 +122,19 @@ Stay happy, stay blessed और हमेशा ऐसे ही खुश र�
         return;
       }
       
+      // Store inputs securely in localStorage as JSON for same-device instant fallback
+      localStorage.setItem('rakhiData', JSON.stringify({ name: name, message: message }));
+      
       let currentUrl = window.location.href.split('?')[0].split('#')[0];
       if(currentUrl.endsWith('index.html')) currentUrl = currentUrl.replace('index.html', '');
       if (!currentUrl.endsWith('/')) currentUrl += '/';
       
-      // Direct name parameter link generation (No key system)
-      const fullUrl = `${currentUrl}rakhi.html?name=${encodeURIComponent(name)}`;
+      // ASCII Encoding for the name and message
+      const asciiKey = name.split('').map(c => c.charCodeAt(0)).join('-');
+      const asciiMsg = message.split('').map(c => c.charCodeAt(0)).join('-');
+      
+      // Name goes to Query Parameters (?key=), Long Message goes to Hash (#m=) to bypass 'URI Too Long' server limits
+      const fullUrl = `${currentUrl}rakhi.html?key=${asciiKey}#m=${asciiMsg}`;
       
       document.getElementById('generatedUrl').value = fullUrl;
       document.getElementById('resultBox').style.display = 'flex';
