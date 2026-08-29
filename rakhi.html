@@ -164,7 +164,7 @@
     </audio>
 
     <script>
-        // Security block[cite: 7, 8]
+        // Security block to disable inspect controls
         document.addEventListener('contextmenu', event => event.preventDefault());
         document.onkeydown = function(e) {
             if (e.keyCode == 123) return false; 
@@ -199,14 +199,39 @@
             if(audio.paused) { audio.play(); }
         }
 
-        // Direct Name Reader from URL parameter (?name=...)
+        // Dual Fetch & Decode Logic implementing ASCII decryption and Hash Retrieval
         const urlParams = new URLSearchParams(window.location.search);
-        const receiverName = urlParams.get('name');
+        const asciiKey = urlParams.get('key');
+        let receiverName = '';
+        
+        // Decode Name from Query Parameter
+        if (asciiKey) {
+            receiverName = asciiKey.split('-').map(code => String.fromCharCode(code)).join('');
+        }
+        
+        // Decode Message from URL Hash (to bypass URI Too Long limits on mobiles/networks)
+        let customMsg = '';
+        const hashMsgMatch = window.location.hash.match(/m=([0-9\-]+)/);
+        if (hashMsgMatch && hashMsgMatch[1]) {
+            customMsg = hashMsgMatch[1].split('-').map(code => String.fromCharCode(code)).join('');
+        }
+        
+        const storedData = JSON.parse(localStorage.getItem('rakhiData') || '{}');
+        
+        if (!receiverName) {
+            receiverName = storedData.name || urlParams.get('name') || '';
+        }
+        
+        // Display name dynamically on receiver page
+        if (receiverName) {
+            document.getElementById('sister-name-display').innerText = `Just for My Sister ${receiverName}`;
+        }
 
-        let letterContent = `Dear Sister ❤️
+        // Native fallback chain: 1. URL Hash Msg -> 2. LocalStorage Msg -> 3. Default Msg
+        let letterContent = customMsg || storedData.message || `Dear Sister ❤️
 
 हमारी bonding थोड़ी अलग है ! ना हमने साथ में बचपन बिताया, न रोज़ मिलना हुआ, 
-फिर भी पता नहीं कब तुम मेरी life का इतना प्यारा हिस्सा बन गई ! ❤️
+फिर भी पता नहीं कब तुम मेरी life का इतना प्यारा हिस्सा बन गई !❤️
 
 हमारी बातें, एक-दूसरे की टांग खींचना, छोटी-छोटी बातों पर लड़ना, बेवजह 
 एक-दूसरे को परेशान करना और फिर कुछ ही देर बाद ऐसे बात करना जैसे कुछ 
@@ -221,7 +246,7 @@
 बिना ज्यादा कुछ बताए ही समझ जाते हैं ! शायद यही हमारी bonding की सबसे अच्छी बात है !
 
 तुम मेरी real sister नहीं हो, लेकिन इसका मतलब ये बिल्कुल नहीं कि तुम्हें परेशान करने, 
-तुम्हारी टांग खींचने और तुम्हें lecture देने में मैं कोई कमी छोड़ूँगा ! 😜 आखिर भाई हूँ ! 
+तुम्हारी टांग खींचने और तुम्हें lecture देने में मैं कोई कमी छोड़ूँगा !😜 आखिर भाई हूँ ! 
 इतना हक तो बनता है मेरा ! 😂
 
 लेकिन मज़ाक से अलग, मैं सच में चाहता हूँ कि तुम हमेशा खुश रहो ! जिंदगी में तुम्हें हर वो चीज़ मिले
@@ -241,11 +266,6 @@ Gift की उम्मीद मत करना, online भाई हूँ !
 Stay happy, stay blessed और हमेशा ऐसे ही खुश रहना, ओके ! 😇❤️
 
 तुम्हारा भाई सलमान 🫂❤️`;
-
-        // Display name directly on receiver page
-        if (receiverName) {
-            document.getElementById('sister-name-display').innerText = `Just for My Sister ${receiverName}`;
-        }
 
         const volumeCheckbox = document.getElementById('volume-checkbox');
         volumeCheckbox.addEventListener('change', function() { document.getElementById('hiddenAudio').muted = !this.checked; });
